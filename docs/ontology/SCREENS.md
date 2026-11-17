@@ -8,20 +8,23 @@ photo/location verification replaces buddy confirmation. Screen names and
 flows below are proposals; exact scoring and boundaries remain open in
 `OPEN_DECISIONS.md`.
 
+This document defines screen responsibilities, navigation and user actions.
+Visual design, including icons, dimensions, colors, typography and detailed
+layouts, remains undecided.
+
 ## Bottom navigation
 
 Keep five positions in this order on mobile:
 
-| Position | Label / icon | Purpose |
+| Position | Label | Purpose |
 | --- | --- | --- |
-| 1 | Profile / user | Personal progress, visit history and settings |
-| 2 | Standings / trophy | Season leaderboard, territory standings and lobby activity |
-| 3 | Check in / plus | Start a visit submission; a prominent action rather than a destination |
-| 4 | Map / map | Explore territories, their leaders and their bars |
-| 5 | Memories / images | Browse the player's visit photos |
+| 1 | Profile | Personal progress, visit history and settings |
+| 2 | Standings | Season leaderboard, territory standings and lobby activity |
+| 3 | Check in | Start a visit submission; an action rather than a destination |
+| 4 | Map | Explore territories, their leaders and their bars |
+| 5 | Memories | Browse the player's visit photos |
 
-Use visible labels with icons, a clear selected destination, and touch
-targets of at least 44 × 44 px. The plus opens a focused flow with Back
+Make the current destination clear. Check in opens a focused flow with Back
 and Cancel; it does not change the selected destination underneath.
 Preserve each destination's position when switching tabs.
 
@@ -83,9 +86,8 @@ provide retry actions. Preserve entered details on recoverable failures.
 
 ### Map and territory detail
 
-- Show territory boundaries, owner/leader labels and bar markers. Pair
-  player colors with names or initials; color alone must not convey ownership.
-- Selecting a territory opens a detail panel with its owner, competing
+- Show territory boundaries, their owners/leaders and bar locations.
+- Selecting a territory opens its details with its owner, competing
   players' points, applicable non-owner reduction and constituent bars. Selecting a bar opens its details
   and offers Check in; territory assignment still comes from verified location.
 - Offer a list alternative showing the same territory standings if the
@@ -97,7 +99,7 @@ provide retry actions. Preserve entered details on recoverable failures.
 
 ### Memories
 
-- Show a chronological grid of the player's visit photos, grouped by date,
+- Show the player's visit photos chronologically, grouped by date,
   with bar names. Open a photo to see its visit detail and status.
 - Distinguish processing, accepted and failed visits wherever they appear together.
 - Start with a personal gallery. Sharing, visibility and deletion behavior
@@ -105,16 +107,12 @@ provide retry actions. Preserve entered details on recoverable failures.
 - Empty state: explain that photos from submitted visits appear here and
   offer Check in. A failed image load must not hide the visit's text details.
 
-## Presentation and feedback
+## Feedback and screen states
 
-- Use a restrained interface: neutral backgrounds, one accent for primary
-  actions, and consistent player colors on the map and in standings.
-- Keep the bottom navigation stable and clear of the phone's safe area.
-  On wider screens, the same destinations can move to a side navigation.
 - Show loading, empty, unavailable and retry states for every data screen.
   Distinguish a failed request from a successful request with no results.
 - After each action, name its outcome: verifying location, accepted with
-  points awarded, or rejected with a reason. Include text alongside status icons.
+  points awarded, or rejected with a reason.
 - Refresh affected standings and territory details after acceptance;
   show when a displayed result is stale or could not be refreshed.
 
