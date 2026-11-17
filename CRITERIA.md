@@ -25,15 +25,17 @@ file before planning, implementing, reviewing, or documenting changes.
 
 ## What a top-scoring project should demonstrate
 
-Each criterion has the same weight in the project grade (20%).
+Each criterion is scored Low (30%), Mid (70%), or High (100%), then
+weighted as shown below.
 
-| Criterion | What to aim for |
-| --- | --- |
-| It works | Every deployed workflow runs end to end and handles invalid actions gracefully. |
-| Design | Screens, game rules, and storage are clearly separated. Names and the data model make the code easy to understand and extend. |
-| Scope and ambition | Meaningful new features build on the selected solo project and work together coherently. |
-| Verification | Automated tests cover valid actions, rejected actions, and edge cases. The full suite passes on `main`. |
-| Walkthrough | Every member can explain what the code does, why it is structured that way, and how they would change it. |
+| Criterion | Weight | What to aim for |
+| --- | --- | --- |
+| It works | 20% | Every deployed workflow runs end to end and handles invalid input gracefully. |
+| UI and UX | 20% | Workflows are direct; results and errors are clearly shown to the player. |
+| Scope and ambition | 20% | Substantial new features build on the selected solo project, well beyond it, and work together coherently. |
+| Verification | 10% | Automated tests cover accepted actions, rejected actions, and edge cases. The full suite passes on `main`. |
+| Security | 10% | Access control and input validation are enforced; dependencies are minimal, pinned, and free of known vulnerabilities. |
+| Repository walkthrough | 20% | Every member can explain how the project is built, why, its limits, and how they would change it. |
 
 ## WeGoPub priorities
 
@@ -90,8 +92,11 @@ Treat an unresolved rule as an open team decision.
 - [ ] Rehearse the live demo on the deployed app with two demo accounts
       and prepared standings that show a territory changing hands.
 - [ ] Check that the public repo contains no credentials or local secrets.
+- [ ] Review access control and input validation on every workflow, and
+      confirm dependencies are minimal, pinned, and free of known
+      vulnerabilities (Security criterion, 10%).
 - [ ] Have one member submit the repository link on Moodle by the
       deadline and verify the submission confirmation.
 
 Course source:
-https://2477-introduction-programming.gitlab.io/2324_s2/team-project/
+https://2477-introduction-programming.gitlab.io/wiki/team-project/
