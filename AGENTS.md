@@ -1,4 +1,4 @@
-# WeGoPub / Bar Territories
+# WeGoPub / Territories
 
 Team project for Introduction to Programming at Nova SBE. Read this
 file before planning, implementing, reviewing, or documenting changes.
@@ -39,21 +39,31 @@ weighted as shown below.
 
 ## WeGoPub priorities
 
-1. Finish the core workflow first. A player checks in at a bar, a buddy
-   confirms the visit, and the player sees the resulting points in the
-   Season leaderboard and the territory standings.
-2. Add one playable minigame with a shared limit of one game per player
-   per game night across all games and arenas. Reuse that logic for
-   additional minigames.
+1. Finish the core workflow first. A player logs a drink with a photo
+   and a GPS position, and sees the resulting points on their total
+   account, on the account of the territory they were in, in the Season
+   leaderboard, and in the territory standings on the map.
+2. Add one playable minigame with a shared limit of one minigame per
+   player per game night across all minigames. Minigames give special
+   items, not points. Reuse that logic for additional minigames.
 3. Once the core is stable, prioritize additions that make the game
-   better and can be demonstrated and tested. Team events and special
-   effects depend on rules agreed by the team.
+   better and can be demonstrated and tested. The territory owner
+   advantage, team events, and special effects depend on rules agreed by
+   the team.
 
-The main competition is individual. Seasons last roughly one month, with
-game nights from Thursday to Sunday. Bars belong to territories.
-Confirm the exact night boundaries, scoring, repeat visits, ties, and
-minigame interruptions before implementing behavior that depends on them.
-Treat an unresolved rule as an open team decision.
+The main competition is individual, and the player with the most total
+points wins. Seasons last roughly one month, with game nights from
+Thursday to Sunday, and only drinks on game nights count. Territories
+are predefined map areas: a player's location assigns a drink to a
+territory, and bars are not part of the game. There is no buddy
+confirmation. A tie is decided in favor of the player who reached the
+tied score first. Confirm the exact night boundaries, points per drink
+category and amount, the territory owner advantage, how territory areas
+are defined, the special items, and minigame interruptions before
+implementing behavior that depends on them. Treat an unresolved rule as
+an open team decision. The game definition lives in `docs/ontology/`:
+`GAME.md` for the idea, `RULES.md` for decided rules, and
+`OPEN_DECISIONS.md` for open points.
 
 ## Instructions for AI assistants and contributors
 
@@ -85,10 +95,11 @@ Treat an unresolved rule as an open team decision.
       and working local run and test commands are in `README.md`.
 - [ ] Confirm all four members have contributed code and rehearse
       explaining a workflow implemented by another member.
-- [ ] Test a valid buddy confirmation, a duplicate check-in or
-      confirmation, self-confirmation, an action outside a game night,
-      a visit after midnight, a tie, and a second minigame attempt at a
-      different arena. Verify that rejected actions leave points unchanged.
+- [ ] Test a valid drink inside a territory and one outside every
+      territory, a check-in without a photo or GPS position, a drink
+      outside Thursday to Sunday, a drink after midnight, a territory
+      changing hands, a tie, and a second minigame in the same evening.
+      Verify that rejected actions leave points unchanged.
 - [ ] Rehearse the live demo on the deployed app with two demo accounts
       and prepared standings that show a territory changing hands.
 - [ ] Check that the public repo contains no credentials or local secrets.
