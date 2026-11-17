@@ -39,8 +39,9 @@ weighted as shown below.
 
 ## WeGoPub priorities
 
-1. Finish the core workflow first. A player logs a drink with a photo
-   and a GPS position, and sees the resulting points on their total
+1. Finish the core workflow first. A player records a drink type and
+   size, takes a required photo, and passes automatic location
+   verification. The player sees the resulting points on their total
    account, on the account of the territory they were in, in the Season
    leaderboard, and in the territory standings on the map.
 2. Add one playable minigame with a shared limit of one minigame per
@@ -55,11 +56,13 @@ The main competition is individual, and the player with the most total
 points wins. Seasons last roughly one month, with game nights from
 Thursday to Sunday, and only drinks on game nights count. Territories
 are predefined map areas: a player's location assigns a drink to a
-territory, and bars are not part of the game. There is no buddy
-confirmation. A tie is decided in favor of the player who reached the
+territory, and bars are not part of the game. Automatic location
+verification replaces buddy confirmation. Drink type and size determine
+base points. A tie is decided in favor of the player who reached the
 tied score first. Confirm the exact night boundaries, points per drink
-category and amount, the territory owner advantage, how territory areas
-are defined, the special items, and minigame interruptions before
+category and size, the territory owner advantage, how territory areas
+are defined, location acceptance, check-in limits (repeat drinks and
+duplicates), the special items, and minigame interruptions before
 implementing behavior that depends on them. Treat an unresolved rule as
 an open team decision. The game definition lives in `docs/ontology/`:
 `GAME.md` for the idea, `RULES.md` for decided rules, and
@@ -95,12 +98,13 @@ an open team decision. The game definition lives in `docs/ontology/`:
       and working local run and test commands are in `README.md`.
 - [ ] Confirm all four members have contributed code and rehearse
       explaining a workflow implemented by another member.
-- [ ] Test a valid drink inside a territory and one outside every
-      territory, a check-in without a photo or GPS position, a drink
-      outside Thursday to Sunday, a drink after midnight, a territory
-      changing hands, a tie, and a second minigame in the same evening.
-      Verify that rejected actions leave points unchanged.
-- [ ] Rehearse the live demo on the deployed app with two demo accounts
+- [ ] Test a valid location-verified check-in inside a territory and
+      one outside every territory, a duplicate submission, missing or
+      inaccurate location, a drink outside Thursday to Sunday, a drink
+      after midnight, a territory changing hands, a tie, and a second
+      minigame in the same evening. Verify that rejected actions leave
+      points unchanged.
+- [ ] Rehearse the live demo on the deployed app with demo accounts
       and prepared standings that show a territory changing hands.
 - [ ] Check that the public repo contains no credentials or local secrets.
 - [ ] Review access control and input validation on every workflow, and
