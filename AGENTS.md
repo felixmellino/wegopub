@@ -39,8 +39,8 @@ weighted as shown below.
 
 ## WeGoPub priorities
 
-1. Finish the core workflow first. A player checks in at a bar, a buddy
-   confirms the visit, and the player sees the resulting points in the
+1. Finish the core workflow first. A player records a drink type and size, takes a required photo,
+   and passes automatic location verification. The player sees points in the
    Season leaderboard and the territory standings.
 2. Add one playable minigame with a shared limit of one game per player
    per game night across all games and arenas. Reuse that logic for
@@ -51,8 +51,11 @@ weighted as shown below.
 
 The main competition is individual. Seasons last roughly one month, with
 game nights from Thursday to Sunday. Bars belong to territories.
-Confirm the exact night boundaries, scoring, repeat visits, ties, and
-minigame interruptions before implementing behavior that depends on them.
+The updated direction replaces buddy confirmation with automatic location
+verification. Drink type and size determine base points; the territory leader
+owns the territory, and other players receive a percentage reduction there.
+Confirm exact night boundaries, scoring, the reduction, location acceptance,
+repeat visits, ties, and minigame interruptions before implementing behavior that depends on them.
 Treat an unresolved rule as an open team decision.
 
 ## Instructions for AI assistants and contributors
@@ -85,11 +88,11 @@ Treat an unresolved rule as an open team decision.
       and working local run and test commands are in `README.md`.
 - [ ] Confirm all four members have contributed code and rehearse
       explaining a workflow implemented by another member.
-- [ ] Test a valid buddy confirmation, a duplicate check-in or
-      confirmation, self-confirmation, an action outside a game night,
+- [ ] Test a valid location-verified check-in, a duplicate submission,
+      missing/inaccurate location, an action outside a game night,
       a visit after midnight, a tie, and a second minigame attempt at a
       different arena. Verify that rejected actions leave points unchanged.
-- [ ] Rehearse the live demo on the deployed app with two demo accounts
+- [ ] Rehearse the live demo on the deployed app with demo accounts
       and prepared standings that show a territory changing hands.
 - [ ] Check that the public repo contains no credentials or local secrets.
 - [ ] Review access control and input validation on every workflow, and

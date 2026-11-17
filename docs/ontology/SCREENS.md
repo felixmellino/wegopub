@@ -3,9 +3,10 @@
 ## Status and scope
 
 UI proposal for team review, not an agreed game specification. Based on
-`README.md` and the core workflow in `AGENTS.md`. The other ontology files
-are currently placeholders. Screen names and flows below are proposals;
-scoring, eligibility and ownership must ultimately come from `RULES.md`.
+`README.md` and the updated direction recorded in `RULES.md`: automatic
+photo/location verification replaces buddy confirmation. Screen names and
+flows below are proposals; exact scoring and boundaries remain open in
+`OPEN_DECISIONS.md`.
 
 ## Bottom navigation
 
@@ -29,8 +30,7 @@ useful starting point each night. First-time users create a profile and
 join a lobby using an invite code before entering the main interface.
 
 The shared header shows the current lobby and Season. Put lobby switching
-and the invite code behind the lobby name, and a confirmation inbox behind
-a bell with a pending-count badge. A game-night status names the relevant
+and the invite code behind the lobby name. A game-night status names the relevant
 date and timezone; exact hours depend on the team's boundary decision.
 
 ## Screens and actions
@@ -38,20 +38,19 @@ date and timezone; exact hours depend on the team's boundary decision.
 ### Profile
 
 - Show avatar, display name, current Season points, rank, territories led
-  and confirmed visits. Label all totals with their time period.
+  and accepted visits. Label all totals with their time period.
 - Show recent personal check-ins with their status and awarded points.
 - Allow opening a visit, editing the profile, opening settings and signing out.
 - Put account/privacy settings here rather than in another bottom tab.
 
 ### Standings (default destination)
 
-- Lead with the player's rank and confirmed Season points.
+- Lead with the player's rank and awarded Season points.
 - Show the individual leaderboard, highlighting the player even when they
   are outside the visible leaders. Each row opens that player's public profile.
 - Provide a local switch between Players and Territories. Territory rows
   show the current leader and open the same detail used by the map.
-- Show pending buddy requests near the top with a direct Review action.
-- Include a short lobby activity list for confirmed visits and territory
+- Include a short lobby activity list for accepted visits and territory
   leadership changes, with links to the relevant visit or territory.
 - Offer a Games entry here once one minigame is working. It shows whether
   the player's shared game-night allowance is available or used across
@@ -59,40 +58,36 @@ date and timezone; exact hours depend on the team's boundary decision.
 
 ### Check in (central action)
 
-1. Select a bar. Suggest nearby bars if location permission is granted,
-   but make the chosen bar explicit before submission.
-2. Capture a photo and review it. The README's drink details and upload
-   alternatives need team agreement before becoming required inputs.
-3. Select a buddy and review the bar, photo and any required details.
-4. Submit once and show a visit detail marked **Pending buddy confirmation**.
+1. Select drink type and size from the configured scoring table.
+2. Take the required photo. Recommended: collect current phone location at
+   capture time; inspect embedded photo coordinates when available.
+3. Show the detected territory, current owner, base points, any non-owner
+   reduction and estimated final points. Explain why a reduction applies.
+4. Submit once. Show **Verifying location** while processing, then either
+   **Accepted · points awarded** or an actionable failure reason.
 
-Do not display pending points as awarded. After confirmation, show the
-actual points awarded and links to Standings and the territory detail.
-Explain camera/location permission problems with a retry action; any
-alternative verification method requires an agreed rule. Preserve entered
-details on recoverable failures and prevent accidental repeat submissions.
-Server validation remains authoritative for eligibility and scoring.
+The server determines the territory and final score. The preview may change
+if ownership changes before acceptance. Missing/uncertain location must not
+silently produce points. Explain camera/location permission problems and
+provide retry actions. Preserve entered details on recoverable failures.
 
-### Confirmation inbox and visit detail
+### Visit detail
 
-- Inbox: requests awaiting this player's review, each showing the player,
-  bar, visit time, photo and status. Open a request to inspect its details.
-- Detail: offer Confirm for eligible requests. Whether buddies can reject
-  or report requests, and what happens next, remains a team decision.
-- Explain self-confirmation, duplicate confirmation, stale requests and
-  other invalid actions. Rejected actions leave points unchanged.
-- On success, show the updated visit status. Opening an already processed
-  request shows its current status rather than another active Confirm button.
-- Link the submitter's pending visit from Profile and Standings so they
-  can find it again after leaving the submission flow.
+- Show photo, drink type, size, time, territory and processing status.
+- For accepted visits, show base points, applied reduction and final points;
+  link to Standings and the territory detail, including any ownership change.
+- For failed verification, explain the reason; points remain unchanged.
+- Make processing visits accessible from Profile so a network interruption
+  does not require another submission. A retry must not duplicate awards.
+- Automatic location checks do not prove the declared drink or size is correct.
 
 ### Map and territory detail
 
 - Show territory boundaries, owner/leader labels and bar markers. Pair
   player colors with names or initials; color alone must not convey ownership.
-- Selecting a territory opens a detail panel with its leader, competing
-  players' points and constituent bars. Selecting a bar opens its details
-  and offers Check in with that bar preselected.
+- Selecting a territory opens a detail panel with its owner, competing
+  players' points, applicable non-owner reduction and constituent bars. Selecting a bar opens its details
+  and offers Check in; territory assignment still comes from verified location.
 - Offer a list alternative showing the same territory standings if the
   map cannot load or is difficult to use.
 - Use a neutral label for an unclaimed or tied territory only when its
@@ -104,7 +99,7 @@ Server validation remains authoritative for eligibility and scoring.
 
 - Show a chronological grid of the player's visit photos, grouped by date,
   with bar names. Open a photo to see its visit detail and status.
-- Keep pending and confirmed visits distinguishable wherever both appear.
+- Distinguish processing, accepted and failed visits wherever they appear together.
 - Start with a personal gallery. Sharing, visibility and deletion behavior
   need decisions before adding controls that promise those actions.
 - Empty state: explain that photos from submitted visits appear here and
@@ -118,23 +113,22 @@ Server validation remains authoritative for eligibility and scoring.
   On wider screens, the same destinations can move to a side navigation.
 - Show loading, empty, unavailable and retry states for every data screen.
   Distinguish a failed request from a successful request with no results.
-- After each action, name its outcome: pending confirmation, confirmed with
+- After each action, name its outcome: verifying location, accepted with
   points awarded, or rejected with a reason. Include text alongside status icons.
-- Refresh affected standings and territory details after confirmation;
+- Refresh affected standings and territory details after acceptance;
   show when a displayed result is stale or could not be refreshed.
 
 ## Build order and open decisions
 
-1. Profile/join lobby → check in → buddy confirmation → updated Standings
+1. Profile/join lobby → drink/size/photo → location verification → updated Standings
    and territory detail. A territory list can precede the interactive map.
 2. Interactive map and personal Memories using the same visit records.
 3. One minigame with a shared allowance across games and arenas.
 
-Before implementing dependent behavior, agree night boundaries/timezone,
-scoring, repeat visits, ties, territory ownership/reset rules, buddy
-eligibility/request expiry, photo and location requirements, photo privacy,
-and interrupted minigames. The README's automatic photo/GPS capture idea
-also needs alignment with the buddy-confirmed core in `AGENTS.md`.
+Before implementing dependent behavior, resolve `OPEN_DECISIONS.md`, especially
+location acceptance, drink/size scoring, the ownership reduction, ties,
+repeat visits and game-night boundaries. Keep scoring in one shared rules
+module so the preview, final award and standings stay consistent.
 
 For the four-position navigation alternative, use **Profile | Standings |
 Check in | Map**, placing Memories inside Profile. Five positions make
