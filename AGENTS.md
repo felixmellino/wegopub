@@ -46,7 +46,18 @@ weighted as shown below.
    leaderboard, and in the territory standings on the map.
 2. Add one playable minigame with a shared limit of one minigame per
    player per game night across all minigames. Minigames give special
-   items, not points. Reuse that logic for additional minigames.
+   items, not points. Chug Duel is the contributor-approved exception
+   (18 November 2026): one outgoing and one incoming duel per member/lobby
+   per 06:00-based night in normal seasons; explicit QA/test seasons allow
+   unlimited sequential replays (R-M02). The winner receives both drinks' base season
+   points. Territory scoring and owner income stay normal. See R-M01–R-M05
+   in `docs/ontology/RULES.md`. Reuse shared rules for additional minigames.
+   Focus Challenge is also team-approved (19 November 2026): see R-M06–R-M09.
+   It has separate personal attempts, three randomized skill tests and one
+   automatic 60-minute x1.5 ordinary-check-in boost per lobby evening.
+   Explicit test seasons also allow Focus without uploads and unlimited
+   sequential replays, including pre-Focus QA snapshots (migration 015).
+   QA games can run throughout an active season; drink scoring keeps its window.
 3. Once the core is stable, prioritize additions that make the game
    better and can be demonstrated and tested. The territory owner
    advantage, team events, and special effects depend on rules agreed by
@@ -86,6 +97,27 @@ an open team decision. The game definition lives in `docs/ontology/`:
   why it works that way, and how a teammate can verify it.
 - Flag gaps that could affect the submission or walkthrough. Finish the
   core workflows and their tests before proposing extra features.
+
+## Team workflow
+
+- Nobody pushes directly to `main`. Work on your own branch, open a pull
+  request, get at least one teammate's look before merging.
+- The four building blocks (Identity & Lobbies, Location & Territories,
+  Drink Entries & Scoring, Standings & Data layer) are each owned
+  end-to-end by one person: their `core/` rule files, tests, and the page
+  that uses them. See `docs/WORKING_GUIDE.md` for the full breakdown.
+- Default to deciding and announcing, not deciding and asking: decide it,
+  build it, write it into `docs/ontology/`, post one line in the group
+  chat, then open your PR. Only ask the team *before* deciding when a
+  change touches a shared entity (`Player`, `LobbyMembership`, `Season`,
+  `Territory`, ...), changes behavior another block's code already calls,
+  or contradicts something already decided (not just open) in the
+  ontology.
+- `docs/ontology/` and the code must always agree. When you resolve an
+  open decision or change a rule, update both in the same change.
+- Full walkthrough of the codebase, the ontology-to-code mapping, and a
+  step-by-step guide for working with Claude Code with no coding
+  experience: `docs/WORKING_GUIDE.md`.
 
 ## Before submitting
 

@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>
+* { box-sizing:border-box; } html,body { margin:0; width:100%; height:100%; overflow:hidden; background:#1A2841; color:#F0E1CE; font:15px system-ui,sans-serif; }
+.camera { position:fixed; inset:0; overflow:hidden; }
+video,img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+video.front { transform:scaleX(-1); }
+[hidden] { display:none !important; }
+.top { position:absolute; top:0; left:0; right:0; display:flex; align-items:center; gap:14px; padding:calc(18px + env(safe-area-inset-top)) 20px 50px; background:linear-gradient(#0009,transparent); }
+.top span { font-size:12px; font-weight:700; letter-spacing:.16em; }
+button { cursor:pointer; color:#F0E1CE; background:#ffffff24; border:1px solid #ffffff50; display:grid; place-items:center; padding:0; -webkit-tap-highlight-color:transparent; }
+.icon { border-radius:50%; width:48px; height:48px; }
+svg { width:25px; height:25px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+button:focus-visible { outline:3px solid #F7D9A8; outline-offset:5px; } button:disabled { opacity:.45; cursor:wait; }
+.bottom { position:absolute; bottom:0; left:0; right:0; padding:70px 24px calc(28px + env(safe-area-inset-bottom)); background:linear-gradient(transparent,#000b); }
+#status { text-align:center; font-size:13px; line-height:1.5; min-height:40px; margin:0 auto 20px; max-width:360px; text-shadow:0 1px 4px #000; }
+.controls { display:grid; grid-template-columns:1fr 84px 1fr; align-items:center; gap:20px; max-width:360px; margin:auto; }
+#shutter { grid-column:2; width:84px; height:84px; border:4px solid #F0E1CE; border-radius:50%; background:transparent; padding:5px; }
+#shutter::after { content:""; width:100%; height:100%; background:#F0E1CE; border-radius:50%; transition:transform .1s; }
+#shutter:active::after { transform:scale(.9); }
+#flip { grid-column:3; justify-self:end; }
+#retry { border-radius:24px; padding:12px 22px; font:inherit; margin:0 auto 20px; }
+</style></head><body>
+<main class="camera" aria-label="Take a drink photo">
+  <video id="video" autoplay playsinline muted aria-label="Live camera preview"></video>
+  <img id="photo" alt="Your captured drink photo" hidden>
+  <div class="top">
+    <button id="cancel" class="icon" type="button" aria-label="Close camera"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+    <span>WEGOPUB · CHECK IN</span>
+  </div>
+  <div class="bottom">
+    <p id="status" role="status" aria-live="polite">Opening your camera… Allow camera access if asked.</p>
+    <button id="retry" type="button" hidden>Retry camera</button>
+    <div class="controls">
+      <button id="shutter" type="button" aria-label="Take photo" disabled></button>
+      <button id="flip" class="icon" type="button" aria-label="Switch front and back camera" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8a8 8 0 0 1 14-3l2 3M20 3v5h-5M20 16a8 8 0 0 1-14 3l-2-3M4 21v-5h5"/></svg></button>
+    </div>
+  </div>
+</main>
+<script>
+const video = document.getElementById('video');
+const photo = document.getElementById('photo');
+const shutter = document.getElementById('shutter');
+const flip = document.getElementById('flip');
+const cancel = document.getElementById('cancel');
+const retry = document.getElementById('retry');
+const status = document.getElementById('status');
+let stream = null, started = false, opening = false, generation = 0;
+let captured = false, disposed = false, facing = 'environment';
+function send(type, details) {
+  window.parent.postMessage({isStreamlitMessage:true, type, ...details}, '*');
+}
+function resize() { send('streamlit:setFrameHeight', {height:window.innerHeight}); }
+function value(result) { send('streamlit:setComponentValue', {value:result, dataType:'json'}); }
+function stopCamera() {
+  generation += 1;
+  if (stream) stream.getTracks().forEach(track => track.stop());
+  stream = null;
+  video.srcObject = null;
+  shutter.disabled = true;
+  flip.disabled = true;
+}
+async function openCamera() {
+  if (opening || captured || stream || document.hidden || disposed) return;
+  opening = true;
+  let restart = false;
+  const attempt = ++generation;
+  retry.hidden = true;
+  shutter.disabled = true;
+  flip.disabled = true;
+  status.textContent = 'Opening your camera… Allow camera access if asked.';
+  try {
+    if (!window.isSecureContext || !navigator.mediaDevices?.getUserMedia) throw {name:'UnsupportedCamera'};
+    const acquired = await navigator.mediaDevices.getUserMedia({audio:false,
+      video:{facingMode:{ideal:facing}, width:{ideal:1600}, height:{ideal:1200}}});
+    if (attempt !== generation || captured || disposed || document.hidden) {
+      acquired.getTracks().forEach(track => track.stop());
+      restart = !document.hidden && !captured && !disposed;
+      return;
+    }
+    stream = acquired;
+    // Single-camera devices can return the same camera for either preference.
+    const actualFacing = acquired.getVideoTracks()[0]?.getSettings?.().facingMode;
+    video.classList.toggle('front', (actualFacing || facing) === 'user');
+    video.srcObject = stream;
+    await video.play();
+    if (attempt !== generation || captured || disposed || document.hidden) return;
+    shutter.disabled = !video.videoWidth;
+    flip.disabled = false;
+    status.textContent = 'Frame your drink';
+  } catch (error) {
+    if (attempt !== generation) {
+      restart = !document.hidden && !captured && !disposed;
+      return;
+    }
+    stopCamera();
+    const messages = {
+      NotAllowedError:'Camera access is blocked. Allow camera access for this site, then retry.',
+      NotFoundError:'No camera was found. Open the app on a device with a camera.',
+      NotReadableError:'The camera is busy. Close other camera apps, then retry.',
+      UnsupportedCamera:'Open the app using its HTTPS address in Safari or Chrome to use the camera.'
+    };
+    status.textContent = messages[error.name] || 'The camera could not start. Please retry.';
+    retry.hidden = false;
+  } finally {
+    opening = false;
+    resize();
+    if (restart) openCamera();
+  }
+}
+video.addEventListener('loadeddata', () => { shutter.disabled = !stream || !video.videoWidth; });
+shutter.addEventListener('click', () => {
+  if (!stream || !video.videoWidth || captured || opening) return;
+  const canvas = document.createElement('canvas');
+  // Save the same centre crop shown in the full-screen preview.
+  const bounds = video.getBoundingClientRect();
+  const ratio = bounds.width / bounds.height;
+  let width = video.videoWidth, height = video.videoHeight;
+  if (width / height > ratio) width = height * ratio;
+  else height = width / ratio;
+  const scale = Math.min(1, 1600 / Math.max(width, height));
+  canvas.width = Math.max(1, Math.round(width * scale));
+  canvas.height = Math.max(1, Math.round(height * scale));
+  const brush = canvas.getContext('2d');
+  if (video.classList.contains('front')) { brush.translate(canvas.width, 0); brush.scale(-1, 1); }
+  brush.drawImage(video, (video.videoWidth - width) / 2, (video.videoHeight - height) / 2,
+    width, height, 0, 0, canvas.width, canvas.height);
+  const image = canvas.toDataURL('image/jpeg', .88);
+  captured = true;
+  photo.src = image;
+  photo.hidden = false;
+  video.hidden = true;
+  shutter.hidden = true;
+  flip.hidden = true;
+  cancel.hidden = true;
+  status.textContent = 'Preparing your photo…';
+  stopCamera();
+  value({capture_id:crypto.randomUUID(), image});
+});
+flip.addEventListener('click', () => {
+  if (opening || captured || disposed) return;
+  facing = facing === 'environment' ? 'user' : 'environment';
+  stopCamera();
+  openCamera();
+});
+cancel.addEventListener('click', () => {
+  disposed = true;
+  stopCamera();
+  value({cancelled:true});
+});
+retry.addEventListener('click', openCamera);
+window.addEventListener('resize', resize);
+window.addEventListener('pagehide', () => { disposed = true; stopCamera(); });
+window.addEventListener('pageshow', () => { disposed = false; if (started) openCamera(); });
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) stopCamera();
+  else if (!captured) openCamera();
+});
+window.addEventListener('message', event => {
+  if (event.source !== window.parent || event.data?.type !== 'streamlit:render') return;
+  if (!started) { started = true; openCamera(); }
+  resize();
+});
+send('streamlit:componentReady', {apiVersion:1});
+resize();
+</script></body></html>

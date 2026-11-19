@@ -1,6 +1,9 @@
 # macOS
 .DS_Store
 
+# Local database backups -- may contain hashed credentials and emails
+/backups/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]

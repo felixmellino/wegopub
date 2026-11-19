@@ -1,0 +1,47 @@
+.lobby-card {background:var(--surface);color:var(--text);border-radius:var(--radius-lg);box-shadow:var(--shadow-card);padding:20px;margin:12px 0 8px;}
+.lobby-card.lobby-past {background:var(--surface);color:var(--text-muted);box-shadow:none;opacity:.72;}
+.lobby-card.lobby-setup,.lobby-card.lobby-upcoming {background:var(--accent-soft);}
+.lobby-card h3 {margin:5px 0 14px;font-size:1.3rem;color:inherit;font-family:var(--font-display);font-weight:650;overflow-wrap:anywhere;}
+.lobby-card .lobby-meta {font-size:.85rem;opacity:.8;margin:0 0 8px;}
+.lobby-person {display:flex;align-items:center;gap:10px;overflow-wrap:anywhere;}
+.lobby-avatar {display:flex;align-items:center;justify-content:center;flex-shrink:0;width:32px;height:32px;border-radius:50%;overflow:hidden;background:var(--surface-raised);color:var(--text);font-size:12px;font-weight:700;}
+.lobby-avatar img {width:100%;height:100%;object-fit:cover;}
+.lobby-countdown {font-weight:600;margin:14px 0 0;color:var(--brand-ink);}
+.lobby-progress {height:4px;margin-top:6px;border-radius:var(--radius-pill);background:var(--accent-soft);overflow:hidden;}
+.lobby-progress span {display:block;height:100%;border-radius:var(--radius-pill);background:var(--accent);}
+
+/* The native button covers the card: pointer, keyboard and screen-reader access. */
+[class*="st-key-lobby_card_"] {position:relative;border-radius:18px;margin:8px 0;}
+[class*="st-key-lobby_card_"] .lobby-card {margin:0;padding-bottom:64px;}
+/* Streamlit's element wrapper must fill the card too, or the button's
+   absolute positioning is relative to a zero-height wrapper below it. */
+[class*="st-key-lobby_card_"] [data-testid="stElementContainer"]:has(> [data-testid="stButton"]) {
+  position:absolute;inset:0;width:100%;height:100%;z-index:1;
+}
+[class*="st-key-lobby_card_"] [data-testid="stButton"] {position:absolute;inset:0;z-index:1;}
+[class*="st-key-lobby_card_"] [data-testid="stButton"] button {
+  position:absolute;inset:0;width:100%;height:100%;border-radius:18px;border:2px solid transparent;
+  background:transparent;color:var(--accent-ink);box-shadow:none;
+  align-items:flex-end;justify-content:flex-end;padding:18px 20px;
+}
+[class*="st-key-lobby_card_"] [data-testid="stButton"] button p {font-weight:600;}
+[class*="st-key-lobby_card_"] [data-testid="stButton"] button:hover {background:color-mix(in srgb,var(--accent) 4%,transparent);border-color:var(--accent-ink);}
+[class*="st-key-lobby_card_"] [data-testid="stButton"] button:focus-visible {outline:3px solid var(--accent-ink);outline-offset:3px;}
+/* Streamlit supplies focus trapping, backdrop interaction blocking and dismissal. */
+[data-testid="stDialog"] {backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);background:rgba(10,20,30,.35);}
+
+/* Keep long member lists scrollable while the leaderboard action stays below. */
+[data-testid="stDialog"] .st-key-lobby_members {max-height:45vh;overflow-y:auto;overflow-x:hidden;padding-right:8px;}
+
+/* Trash icon in the top-right corner of a lobby card: removes the lobby for this player only.
+   Icon-only; the label stays for screen readers. Overrides the card-covering button rules above. */
+[class*="st-key-lobby_card_"] [class*="st-key-trash_"] { position:absolute; top:10px; right:10px; z-index:3; width:44px; height:44px; }
+[class*="st-key-lobby_card_"] [class*="st-key-trash_"] [data-testid="stElementContainer"]:has(> [data-testid="stButton"]),
+[class*="st-key-lobby_card_"] [class*="st-key-trash_"] [data-testid="stButton"] { position:static; width:44px; height:44px; }
+[class*="st-key-lobby_card_"] [class*="st-key-trash_"] [data-testid="stButton"] button {
+  position:static; width:44px; height:44px; min-height:44px; padding:0; border:1px solid var(--border);
+  border-radius:12px; background:var(--surface); color:var(--text-muted); align-items:center; justify-content:center; }
+[class*="st-key-lobby_card_"] [class*="st-key-trash_"] [data-testid="stButton"] button:hover { color:var(--brand-ink); border-color:var(--brand-ink); background:var(--surface); }
+[class*="st-key-lobby_card_"] [class*="st-key-trash_"] [data-testid="stButton"] button > div {
+  position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; }
+[class*="st-key-lobby_card_"] [class*="st-key-trash_"] [data-testid="stButton"] button::before { margin-right:0 !important; width:20px !important; height:20px !important; flex-basis:20px !important; }

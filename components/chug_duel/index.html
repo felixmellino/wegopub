@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style id="tokens"></style><style>
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;overscroll-behavior:none;
+ background:var(--bg);color:var(--text);font-family:var(--font-body)}
+main{position:fixed;inset:0;display:grid;grid-template-columns:1fr 1fr;gap:8px;
+ padding:calc(8px + env(safe-area-inset-top)) calc(8px + env(safe-area-inset-right))
+ calc(8px + env(safe-area-inset-bottom)) calc(8px + env(safe-area-inset-left));touch-action:none}
+button{border:2px solid var(--border);border-radius:var(--radius-lg);background:var(--surface);
+ color:var(--text);font:inherit;touch-action:none;user-select:none;-webkit-user-select:none;
+ display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;min-width:0;padding:16px}
+button strong{font-size:clamp(20px,5vw,32px);overflow-wrap:anywhere;max-width:100%}
+button span{font-size:clamp(16px,4vw,24px)}button.ready{background:var(--surface-raised);border-color:var(--accent)}
+button.winner{background:var(--accent);color:var(--on-accent)}button:disabled{opacity:1}
+button:focus-visible{outline:3px solid var(--accent-ink);outline-offset:-6px}
+#status{position:absolute;left:50%;top:20%;transform:translate(-50%,-50%);pointer-events:none;
+ background:var(--bg);border:2px solid var(--border);border-radius:var(--radius-pill);padding:16px;
+ font-size:clamp(26px,7vw,56px);font-weight:700;text-align:center;max-width:85%;overflow-wrap:anywhere}
+#hint{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom));left:16px;right:16px;
+ margin:0;text-align:center;color:var(--text-muted);font-size:14px;pointer-events:none}
+</style></head><body>
+<main aria-label="Chug Duel split screen">
+ <button id="challenger" aria-label="Challenger ready"><strong></strong><span>Tap when ready</span></button>
+ <button id="opponent" aria-label="Opponent ready"><strong></strong><span>Tap when ready</span></button>
+ <div id="status" role="status" aria-live="polite">Ready?</div>
+</main><p id="hint">Both players tap Ready. Wait for GO before the winning tap.</p>
+<script>
+let game=null,ready=new Set(),arming=false,locked=false,result=null,tick=null,playAt=null,goAt=0;
+const buttons=['challenger','opponent'].map(id=>document.getElementById(id));
+const status=document.getElementById('status');
+const hint=document.getElementById('hint');
+function send(type,details){window.parent.postMessage({isStreamlitMessage:true,type,...details},'*');}
+function emit(value){send('streamlit:setComponentValue',{value:{duel_id:game.duel_id,...value},dataType:'json'});}
+function terminal(){return game?.state==='completed'||game?.state==='aborted';}
+function winnerText(side){return String(game?.[side]||'Player')+' wins';}
+function renderClock(){
+ if(terminal()||locked){
+   const winner=game?.state==='aborted'?null:game?.state==='completed'?game.winner:result;
+   status.textContent=game?.state==='aborted'?'Ended without winner':winner?winnerText(winner):'Saving result…';
+   hint.textContent=game?.state==='completed'?'Result saved':game?.state==='aborted'?'Both keep their normal drink points.':'Saving result…';
+   buttons.forEach(b=>{b.disabled=true;b.classList.toggle('winner',b.id===winner);
+     b.querySelector('span').textContent=b.id===winner?'Winner':game?.state==='aborted'?'Duel ended':'Finished';});
+   return;
+ }
+ buttons.forEach(b=>{b.classList.toggle('ready',ready.has(b.id));b.querySelector('span').textContent=ready.has(b.id)?'Ready':'Tap when ready';});
+ if(!game?.play_at){status.textContent=arming?'Starting…':'Ready?';hint.textContent='Both players tap their side to get ready.';return;}
+ const remaining=goAt-performance.now();
+ status.textContent=remaining>0?String(Math.ceil(remaining/1000)):'GO';
+ hint.textContent=remaining>0?'Wait for GO':'First finish tap wins';
+ buttons.forEach(b=>{b.querySelector('span').textContent=remaining>0?'Wait for GO':'Tap to finish';});
+}
+function press(side){
+ if(!game||locked||terminal())return;
+ if(!game.play_at){
+   if(arming)return;
+   ready.add(side);renderClock();
+   if(ready.size===2){arming=true;emit({phase:'ready'});renderClock();}
+   return;
+ }
+ if(performance.now()<goAt)return;
+ // The first browser event locks both halves before any server round trip.
+ locked=true;result=side;
+ try{sessionStorage.setItem('chug-result-'+game.duel_id,side);}catch{}
+ renderClock();emit({phase:'result',winner:side});
+}
+buttons.forEach(b=>{
+ b.addEventListener('pointerdown',e=>{e.preventDefault();press(b.id);});
+ b.addEventListener('keydown',e=>{if(!e.repeat&&(e.key==='Enter'||e.key===' ')){e.preventDefault();press(b.id);}});
+});
+window.addEventListener('message',event=>{
+ if(event.source!==window.parent||event.data?.type!=='streamlit:render')return;
+ const args=event.data.args;
+ if(!args||typeof args.duel_id!=='string')return;
+ if(game&&game.duel_id!==args.duel_id){ready=new Set();arming=false;locked=false;result=null;playAt=null;goAt=0;buttons.forEach(b=>{b.disabled=false;b.classList.remove('winner');});}
+ if(args.play_at&&args.play_at!==playAt){
+   // A live Ready -> armed transition always shows all three seconds. Keep
+   // this monotonic deadline through polling/reruns; a resumed board uses
+   // the already-saved server deadline instead of restarting its countdown.
+   const remaining=Date.parse(args.play_at)-Date.parse(args.server_now);
+   goAt=performance.now()+Math.max(arming?3000:0,remaining);
+   playAt=args.play_at;
+ }
+ game=args;
+ document.getElementById('tokens').textContent=args.tokens||'';
+ buttons.forEach(b=>{b.querySelector('strong').textContent=String(args[b.id]||'Player');b.setAttribute('aria-label',String(args[b.id]||'Player')+' ready or finish');});
+ if(!result&&!terminal()){try{const cached=sessionStorage.getItem('chug-result-'+game.duel_id);if(['challenger','opponent'].includes(cached)){result=cached;locked=true;}}catch{}}
+ if(result&&game.play_at&&!terminal())emit({phase:'result',winner:result});
+ renderClock();if(!tick)tick=setInterval(renderClock,100);
+ send('streamlit:setFrameHeight',{height:window.innerHeight});
+});
+window.addEventListener('resize',()=>send('streamlit:setFrameHeight',{height:window.innerHeight}));
+send('streamlit:componentReady',{apiVersion:1});send('streamlit:setFrameHeight',{height:window.innerHeight});
+</script></body></html>

@@ -1,0 +1,211 @@
+/* WeGoPub design system, direction "Tennis": Sky Blue #2C99D6, Cloud
+   White #F8FAFC and Scarlet Red #EB2F33. Sky is the primary action colour
+   and also "your" territory; Scarlet is the wordmark and "a rival's"
+   territory, never a button fill. Loaded once on every page by theme.py.
+   Page styles (assets/*.css) use these variables instead of their own
+   colours. */
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Barlow:wght@400;500;600;700;800&display=swap');
+
+:root {
+  color-scheme: light;
+  /* colours */
+  --bg: #F8FAFC;               /* Cloud White */
+  --surface: #FFFFFF;
+  --surface-raised: #FFFFFF;
+  --text: #142B3D;
+  --text-muted: #52708A;       /* 4.9:1 on --bg, passes AA for small text */
+  --accent: #2C99D6;
+  --accent-hover: #1F86BE;
+  --accent-ink: #156A96;      /* sky blue fails AA for small text/links -- use this darker shade */
+  --accent-soft: #EAF4FB;
+  --on-accent: #142B3D;        /* navy, not white -- sky blue fails AA with white text */
+  --border: rgb(20 43 61 / .12);  /* ink at low alpha, not a solid hex -- blends on any surface colour */
+  --hud-bg: rgba(255, 255, 255, .92);
+  --brand: #EB2F33;            /* wordmark only, large text */
+  --brand-ink: #C0242A;        /* subtle red: lobby countdowns -- never a fill */
+  /* territory colours: yours = Sky, theirs = Scarlet, free = grey. Blue vs
+     red stays distinct for red-green colour-blind players. Use the -ink
+     shades whenever the colour is small text. */
+  --territory-yours: #2C99D6;
+  --territory-theirs: #EB2F33;
+  --territory-free: #8A97A6;
+  --territory-yours-ink: var(--accent-ink);
+  --territory-theirs-ink: var(--brand-ink);
+  --you-dot: #FFFFFF;          /* white dot, navy ring: never confused with a territory fill */
+  /* status */
+  --success: #2E9E5B;
+  --success-ink: #1F7A45;      /* --success fails AA as small text; use this for text */
+  --warning: #F4C04E;
+  --error: #FF7A70;
+  --info: #7DB8FF;
+  --medal-2: #C9D6DD;
+  --medal-3: #D7A26B;
+  /* type */
+  --font-display: 'Anton', Impact, sans-serif;
+  --font-body: 'Barlow', system-ui, -apple-system, sans-serif;
+  /* shape */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+  --radius-btn: 10px;
+  --border-width: 1px;
+  --shadow-card: 0 0 0 1px rgba(20, 43, 61, .04), 0 6px 18px rgba(20, 43, 61, .08);
+  --shadow-float: 0 14px 36px rgba(20, 43, 61, .16);
+  /* Older page styles read these names; point them at the Tennis tokens. */
+  --drink-ink: var(--text);
+  --drink-muted: var(--text-muted);
+  --drink-green: var(--accent-ink);
+  --drink-line: var(--border);
+}
+
+/* Base */
+/* Present for screen readers, invisible on screen. */
+.sr-only { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.stApp { background: var(--bg); color: var(--text); }
+[data-testid="stMainBlockContainer"] { max-width: 880px; padding-top: 2rem; }
+/* Invisible helpers (style blocks, the fixed tab bar, background location and
+   sign-in components) take no room, so pages don't start with an empty gap.
+   They stay in the page and keep working. */
+.stApp [data-testid="stElementContainer"]:has([data-testid="stMarkdownContainer"] > style):not(:has([data-testid="stMarkdownContainer"] > :not(style))),
+.stApp [data-testid="stLayoutWrapper"]:has(> .st-key-wego_bottom_nav),
+.stApp .st-key-remember_device, .stApp .st-key-live_location_tracker, .stApp .st-key-location_permission {
+  position: absolute !important; width: 0; height: 0; overflow: hidden; margin: 0; padding: 0;
+}
+/* No empty Streamlit header bar: it only held the app menu and took the
+   top of every phone screen. */
+.stApp [data-testid="stHeader"] { display: none; }
+@media (max-width: 640px) {
+  /* Phones: content starts right under the status bar, small side margins. */
+  .stApp [data-testid="stMainBlockContainer"] {
+    padding-top: calc(0.75rem + env(safe-area-inset-top, 0px));
+    padding-left: 0.9rem; padding-right: 0.9rem;
+  }
+  .stApp h1 { font-size: 2rem; padding: 0.25rem 0 0.5rem; }
+  .stApp h2 { font-size: 1.35rem; }
+  .stApp [data-testid="stVerticalBlock"] { gap: 0.75rem; }
+}
+.stApp, .stApp p, .stApp li, .stApp label, .stApp input, .stApp textarea, .stApp button,
+.stApp h2, .stApp h3, .stApp h4, .stApp td, .stApp th, .stApp small {
+  font-family: var(--font-body);
+}
+.stApp h1 {
+  font-family: var(--font-display); font-weight: 400;
+  color: var(--text); line-height: 1.05;
+}
+.stApp [data-testid="stCaptionContainer"], .stApp [data-testid="stCaptionContainer"] p { color: var(--text-muted); }
+.stApp a { color: var(--accent-ink); }
+
+/* Wordmark: the only big use of the scarlet. */
+.stApp p.wego-wordmark {
+  font-family: var(--font-display); font-weight: 400; text-transform: uppercase;
+  color: var(--brand); font-size: 2.6rem; line-height: 1; margin: .2rem 0 .6rem;
+}
+.stApp p.wego-wordmark span { color: var(--text); }
+
+/* Buttons */
+.stApp [data-testid="stBaseButton-primary"] {
+  background: var(--accent); color: var(--on-accent); border: 0;
+  border-radius: var(--radius-btn); min-height: 52px; font-weight: 700;
+  box-shadow: none;
+}
+.stApp [data-testid="stBaseButton-primary"] p { color: var(--on-accent); font-weight: 700; }
+.stApp [data-testid="stBaseButton-primary"]:hover:not(:disabled) { background: var(--accent-hover); color: var(--on-accent); }
+.stApp [data-testid="stBaseButton-primary"]:disabled { background: var(--surface-raised); color: var(--text-muted); box-shadow: none; }
+.stApp [data-testid="stBaseButton-secondary"], .stApp [data-testid="stBaseButton-secondaryFormSubmit"] {
+  background: var(--surface-raised); color: var(--text);
+  border: var(--border-width) solid var(--border); border-radius: var(--radius-btn); min-height: 44px;
+}
+.stApp [data-testid="stBaseButton-secondary"]:hover:not(:disabled) { border-color: var(--accent-ink); color: var(--text); }
+.stApp [data-testid="stBaseButton-primaryFormSubmit"] {
+  background: var(--accent); color: var(--on-accent); border: 0; border-radius: var(--radius-btn); min-height: 52px; font-weight: 700;
+}
+.stApp [data-testid="stBaseButton-primaryFormSubmit"] p { color: var(--on-accent); }
+
+/* Inputs */
+.stApp [data-testid="stTextInput"] input, .stApp [data-testid="stTextArea"] textarea,
+.stApp [data-testid="stNumberInput"] input {
+  background: var(--surface); color: var(--text); border-radius: var(--radius-md);
+}
+.stApp [data-baseweb="input"], .stApp [data-baseweb="select"] > div, .stApp [data-baseweb="textarea"] {
+  background: var(--surface); border-color: var(--border); border-radius: var(--radius-md);
+}
+.stApp [data-testid="stWidgetLabel"] p { color: var(--text); font-weight: 600; }
+
+/* Containers, forms, expanders, alerts */
+.stApp [data-testid="stForm"] { background: var(--surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-card); }
+.stApp [data-testid="stExpander"] details { background: var(--surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-card); }
+.stApp [data-testid="stExpander"] summary p { color: var(--text); font-weight: 600; }
+.stApp [data-testid="stAlertContainer"] { border-radius: var(--radius-md); }
+.stApp [data-testid="stMetric"] { background: var(--surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-card); padding: 12px 14px; }
+.stApp [data-testid="stMetricValue"] { font-family: var(--font-display); font-weight:700; color: var(--text); }
+
+/* Radios, checkboxes and segmented controls in the sky-blue accent */
+.stApp [data-testid="stSegmentedControl"] button { border-radius: var(--radius-pill); }
+
+/* Reusable pill-segmented look for a plain horizontal radio, first built
+   for the login screen's Create account/Log in toggle. Opt in by giving
+   the radio (or a wrapping st.container) a key starting "pill_radio_".
+   No .stApp prefix here -- st.dialog content renders outside it. */
+[class*="st-key-pill_radio_"] [data-testid="stRadio"] [role="radiogroup"],
+[class*="st-key-chug_drink"] [role="radiogroup"] {
+  display: inline-flex; gap: 4px; background: var(--surface); border-radius: var(--radius-pill);
+  padding: 4px; box-shadow: var(--shadow-card);
+}
+[class*="st-key-pill_radio_"] [data-testid="stRadioOption"],
+[class*="st-key-chug_drink"] [data-testid="stRadioOption"] {
+  flex: 0 0 auto; justify-content: center; border-radius: var(--radius-pill);
+  padding: 0.55rem 1.1rem; margin: 0; white-space: nowrap; cursor: pointer; transition: background 150ms ease;
+}
+[class*="st-key-pill_radio_"] [data-testid="stRadioOption"] > div > div:first-child,
+[class*="st-key-chug_drink"] [data-testid="stRadioOption"] > div > div:first-child { display: none; }
+[class*="st-key-pill_radio_"] [data-testid="stRadioOption"] label p,
+[class*="st-key-chug_drink"] [data-testid="stRadioOption"] label p { color: var(--text-muted); font-weight: 650; }
+[class*="st-key-pill_radio_"] [data-testid="stRadioOption"]:has(input:checked),
+[class*="st-key-chug_drink"] [data-testid="stRadioOption"]:has(input:checked) { background: var(--accent); }
+[class*="st-key-pill_radio_"] [data-testid="stRadioOption"]:has(input:checked) p,
+[class*="st-key-chug_drink"] [data-testid="stRadioOption"]:has(input:checked) p { color: var(--on-accent); }
+[class*="st-key-pill_radio_"] [data-testid="stRadioOption"]:has(input:focus-visible),
+[class*="st-key-chug_drink"] [data-testid="stRadioOption"]:has(input:focus-visible) {
+  outline: 3px solid var(--accent-ink); outline-offset: 2px;
+}
+
+/* A quiet line under a page title (theme.page_subtitle). */
+.stApp .page-subtitle { margin: -0.4rem 0 0.6rem; font-size: 0.9rem; color: var(--text-muted); }
+
+/* Menu lists, iPhone "grouped list" style: one white card per group, rows
+   with an icon on the left, a chevron on the right and hairlines between.
+   Opt in with st.container(key="menu_list_<name>") around st.buttons and
+   theme.menu_icons({button key: icon}) for the row icons. */
+[class*="st-key-menu_list_"] {
+  gap: 0 !important; background: var(--surface); border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card); overflow: hidden; margin-bottom: 0.4rem;
+}
+.stApp [class*="st-key-menu_list_"] button {
+  display: flex; align-items: center; justify-content: flex-start; gap: 14px;
+  width: 100%; min-height: 52px; padding: 0 16px; margin: 0;
+  background: transparent; border: 0; border-radius: 0; box-shadow: none; color: var(--text);
+}
+.stApp [class*="st-key-menu_list_"] [data-testid="stElementContainer"] + [data-testid="stElementContainer"] button {
+  box-shadow: inset 0 1px 0 var(--border);
+}
+.stApp [class*="st-key-menu_list_"] button:hover:not(:disabled) { background: var(--accent-soft); color: var(--text); border: 0; }
+.stApp [class*="st-key-menu_list_"] button::before {
+  content: ""; flex: 0 0 22px; height: 22px; background-color: var(--accent-ink);
+  -webkit-mask: none center / contain no-repeat; mask: none center / contain no-repeat;
+}
+.stApp [class*="st-key-menu_list_"] button::after {
+  content: ""; flex: 0 0 14px; height: 14px; margin-left: auto; background-color: var(--text-muted);
+  -webkit-mask: var(--icon-caret-right) center / contain no-repeat; mask: var(--icon-caret-right) center / contain no-repeat;
+}
+.stApp [class*="st-key-menu_list_"] button > div,
+.stApp [class*="st-key-menu_list_"] button [data-testid="stMarkdownContainer"] { flex: 1 1 auto; justify-content: flex-start; text-align: left; }
+.stApp [class*="st-key-menu_list_"] button p { text-align: left; font-size: 1rem; font-weight: 600; color: inherit; }
+.stApp .st-key-menu_list_logout button { color: var(--brand-ink); }
+.stApp .st-key-menu_list_logout button::before { background-color: var(--brand-ink); }
+.stApp .st-key-menu_list_logout button::after { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .stApp * { transition: none !important; animation: none !important; }
+}

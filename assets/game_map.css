@@ -1,0 +1,83 @@
+/* Game-style Map page: the map is the screen, HUD and sheet float on top.
+   Colours come from the design tokens in assets/theme.css.
+   Laptop: the map is a rounded panel in the page. Phone (max 640px): the map
+   fills the whole screen like Apple Maps, the HUD floats at the top and the
+   sheet (location, check in, territory list) sits above the tab bar. */
+[data-testid="stMainBlockContainer"] { padding-top: 1rem; }
+
+/* The map: rounded, tall. */
+.st-key-game_map { border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-float); }
+
+/* Streamlit pulls markdown blocks up by 1rem; here that made the bar overlap the chips. */
+.st-key-game_hud [data-testid="stMarkdownContainer"], .st-key-game_card [data-testid="stMarkdownContainer"] { margin-bottom: 0 !important; }
+.st-key-game_hud [data-testid="stElementContainer"], .st-key-game_card [data-testid="stElementContainer"] { margin: 0 !important; }
+
+/* HUD floats over the top of the map: a slim bar, then the zoom chips alone below it. */
+.st-key-game_hud { position: relative; z-index: 5; margin-bottom: -100px; padding: 12px 12px 0; pointer-events: none; gap: 10px !important; }
+.st-key-game_hud * { pointer-events: auto; }
+.game-hud { display: flex; justify-content: space-between; align-items: center; gap: 10px; height: 38px; padding: 0 16px;
+  background: var(--hud-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border-radius: var(--radius-pill); color: var(--text); box-shadow: var(--shadow-card); }
+.game-hud-lobby { font-size: 0.95rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.game-hud-counts { display: flex; align-items: baseline; gap: 4px; font-size: 0.74rem; color: var(--text-muted); white-space: nowrap; flex: 0 0 auto; }
+.game-hud-counts b { font-size: 0.95rem; font-weight: 700; margin-left: 8px; }
+.game-hud-counts b:first-child { margin-left: 0; }
+.game-hud .game-yours { color: var(--territory-yours-ink); }
+.game-hud .game-theirs { color: var(--territory-theirs-ink); }
+.game-hud .game-free { color: var(--text); }
+
+/* Zoom chips: one row of separate pills that scrolls sideways. */
+.st-key-map_focus [data-baseweb="button-group"], .st-key-map_focus [role="radiogroup"] {
+  flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; gap: 6px; padding: 2px 2px 6px;
+  /* a soft fade on the right edge says "there are more chips" */
+  -webkit-mask-image: linear-gradient(90deg, #000 88%, transparent); mask-image: linear-gradient(90deg, #000 88%, transparent); }
+.st-key-map_focus button { min-height: 32px; padding: 2px 11px; border-radius: var(--radius-pill); white-space: nowrap; flex: 0 0 auto;
+  background: var(--hud-bg); color: var(--text); border: 0; box-shadow: 0 2px 8px rgba(20, 43, 61, .16);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
+.st-key-map_focus button p { font-size: 0.75rem; font-weight: 600; }
+/* Streamlit styles the selected chip itself; !important makes ours win. */
+.st-key-map_focus button[aria-checked="true"] { background: var(--accent) !important; color: var(--on-accent) !important; }
+.st-key-map_focus button[aria-checked="true"] p { color: var(--on-accent) !important; }
+
+/* The map's own +/- buttons are hidden: pinch (phone) or scroll (laptop) to zoom. */
+.st-key-game_map .mapboxgl-ctrl-group { display: none !important; }
+
+/* Slim sheet over the bottom of the map: where you are. */
+.st-key-game_card { position: relative; z-index: 5; margin: -134px 12px 0; width: auto !important; flex: 0 0 auto !important;
+  background: var(--hud-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border-radius: 18px; padding: 8px 14px 2px; box-shadow: var(--shadow-float); gap: 0 !important; }
+.game-card { color: var(--text); }
+.game-card small { display: block; font-size: 0.62rem; letter-spacing: 0.14em; color: var(--text-muted); text-transform: uppercase; }
+.game-card h3 { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: 1.2rem;
+  color: var(--text); padding: 0; line-height: 1.15; }
+.game-card p { margin: 1px 0 0; font-size: 0.8rem; line-height: 1.3; color: var(--text-muted); }
+.game-card .game-yours { color: var(--territory-yours-ink); }
+.game-card .game-theirs { color: var(--territory-theirs-ink); }
+/* The territory list: a quiet row at the bottom of the sheet. */
+.stApp .st-key-game_card [data-testid="stExpander"] details { box-shadow: none; background: transparent; border: 0; }
+.stApp .st-key-game_card [data-testid="stExpander"] summary { padding: 4px 2px; min-height: 0; }
+.stApp .st-key-game_card [data-testid="stExpander"] summary p { font-size: 0.8rem; color: var(--accent-ink); }
+.stApp .st-key-game_card [data-testid="stExpanderDetails"] { padding: 0 0 6px; }
+
+@media (max-width: 640px) {
+  /* The map fills the whole phone screen; nothing scrolls under it. */
+  .stApp:has(.st-key-game_map) [data-testid="stMain"] { overflow: hidden; }
+  .stApp .st-key-game_map { position: fixed; inset: 0; z-index: 0; border-radius: 0; box-shadow: none; }
+  .stApp .st-key-game_map [data-testid="stDeckGlJsonChart"],
+  .stApp .st-key-game_map [data-testid="stDeckGlJsonChart"] > div { height: 100dvh !important; }
+  /* HUD at the top, under the status bar. */
+  .stApp .st-key-game_hud { position: fixed; z-index: 10; left: 10px; right: 10px; width: auto !important;
+    top: calc(8px + env(safe-area-inset-top, 0px)); margin: 0; padding: 0; }
+  /* Sheet just above the tab bar; the territory list scrolls inside it. */
+  .stApp .st-key-game_card { position: fixed; z-index: 10; left: 10px; right: 10px; width: auto !important; margin: 0;
+    bottom: calc(92px + env(safe-area-inset-bottom, 0px));
+    max-height: calc(100dvh - 220px); overflow-y: auto; }
+}
+
+/* Tap or hover a territory: a tiny tooltip next to it, drawn by the map itself (name + points). */
+.tt-name { font-weight: 700; margin-bottom: 2px; }
+.tt-row { display: flex; justify-content: space-between; gap: 14px; }
+.tt-row:has(> span:empty) { display: none; }
+.tt-row b { font-weight: 700; font-variant-numeric: tabular-nums; }
+.tt-none { color: #8A99A6; font-size: 11px; }
+.tt-none:empty { display: none; }

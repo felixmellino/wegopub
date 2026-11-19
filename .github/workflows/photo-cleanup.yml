@@ -1,0 +1,51 @@
+name: Private photo cleanup
+
+on:
+  schedule:
+    - cron: '17 4 * * *' # Daily at 04:17 UTC; GitHub may delay scheduled jobs.
+  workflow_dispatch:
+    inputs:
+      apply:
+        description: Delete eligible expired and abandoned photos (false previews only)
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: private-photo-cleanup
+  cancel-in-progress: false
+
+jobs:
+  cleanup:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+      - name: Install pinned app dependencies
+        run: |
+          python -m pip install --upgrade pip==26.3
+          python -m pip install -r requirements.txt
+          python -m pip check
+      - name: Preview and optionally remove eligible photos
+        env:
+          SUPABASE_URL: ${{ secrets.PHOTO_CLEANUP_SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.PHOTO_CLEANUP_SUPABASE_KEY }}
+          APPLY: ${{ github.event_name == 'schedule' || inputs.apply }}
+        shell: bash
+        run: |
+          if [ -z "$SUPABASE_URL" ] || [ -z "$SUPABASE_KEY" ]; then
+            echo 'Configure PHOTO_CLEANUP_SUPABASE_URL and PHOTO_CLEANUP_SUPABASE_KEY in repository Actions secrets.' >&2
+            exit 1
+          fi
+          python -m data.cleanup_checkin_photos
+          if [ "$APPLY" = 'true' ]; then
+            python -m data.cleanup_checkin_photos --apply
+          fi

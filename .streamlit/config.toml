@@ -1,0 +1,16 @@
+[server]
+enableXsrfProtection = true
+enableCORS = true
+maxUploadSize = 10
+
+[browser]
+gatherUsageStats = false
+
+# Design system "Tennis" (see assets/theme.css for the full token set).
+[theme]
+base = "light"
+primaryColor = "#2C99D6"
+backgroundColor = "#F8FAFC"
+secondaryBackgroundColor = "#FFFFFF"
+textColor = "#142B3D"
+font = "sans serif"
