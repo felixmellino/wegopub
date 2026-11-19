@@ -6,8 +6,8 @@ The Minigames page is a colourful grid of square tiles, three rows of two on
 every screen, phones first (redesign 19 November 2026). Each tile has an
 animated picture (`assets/games/*.svg`, drawn for this app), the name and one
 short status line; tapping a playable tile opens the game. Order: Chug Duel
-(orange), Reaction Test = Focus Challenge (violet), Quiz Duel (green) and
-three "New game" placeholders. Chug Duel is playable. Focus Challenge opens in new seasons whose frozen
+(orange), Reaction Test = Focus Challenge (violet), Quiz Duel (green), Time Duel
+(blue) and two "New game" placeholders. Focus Challenge opens in new seasons whose frozen
 rules enable it; older seasons show a disabled action and retain their rules.
 Focus shows check-in progress, its next unlock, the tasks and reward. A saved
 running attempt resumes full screen. Its timer continues on navigation; Close
@@ -17,12 +17,12 @@ result. Check-in previews and photo history identify the earned multiplier.
 Open Chug Duel replaces the list with the existing invitation, acceptance,
 shared capture, allowance and history controls, like a page on a phone.
 ‹ All games returns to the list without cancelling invitations or changing
-any allowance. The hub polls invitations and shows a white status pill on the
-Chug Duel tile when a response is waiting. A small count in the upper-right
-corner of the Games tab icon shows pending incoming Chug, Quiz and Time Duel
-invitations in the selected season. The count refreshes while the app is open,
-including on other tabs. Opening Games keeps the badge visible while invites
-are pending. The badge disappears when the count reaches zero.
+any allowance. The upper-right badge on a duel tile shows its pending incoming
+invitations in the selected season. The Games tab icon shows the combined count
+and refreshes on other tabs too. Open the relevant game to accept or decline an
+invite or to see a challenge you sent. Reading an invite leaves it pending.
+Acceptance, decline, cancellation or expiry removes it from the count, and a
+zero count hides the badge.
 A host's running duel still takes priority and resumes its full-screen
 board, retaining its saved result until explicit dismissal. Membership is
 checked before the list is shown. The catalogue does not mount a continuous

@@ -681,6 +681,12 @@ def pending_minigame_invite_count(player_id: str, season_id: str) -> int:
     }).execute().data
 
 
+def pending_minigame_invites(player_id: str, season_id: str) -> dict[str, int]:
+    return get_client().rpc("pending_minigame_invites", {
+        "actor_player": player_id, "target_season": season_id,
+    }).execute().data[0]
+
+
 def invite_chug_duel(player_id: str, season_id: str, invitation_id: str,
                      opponent_id: str, drink: str, size: str | None) -> dict:
     return _duel_rpc("invite_chug_duel", {"actor_player": player_id, "target_season": season_id,

@@ -23,7 +23,7 @@ from phone_location import current_location, track_location
 from core.focus_challenge import enabled as focus_enabled, test_mode as focus_test_mode
 from focus_challenge_ui import render_focus
 from quiz_duel_ui import render_quiz
-from time_duel_ui import render_time, render_time_inbox
+from time_duel_ui import render_time
 
 SERVICE_ERRORS = (APIError, RequestError, RuntimeError, OSError, StorageException)
 
@@ -53,7 +53,7 @@ def _art(name):
     return "data:image/svg+xml;base64," + b64encode((GAME_ART / f"{name}.svg").read_bytes()).decode()
 
 
-def _game_tile(key, art, title, line, *, alert=False, playable=True, real=True):
+def _game_tile(key, art, title, line, *, invites=0, alert=False, playable=True, real=True):
     """One colourful square tile: animated picture, name, one status line.
     A playable tile has its "Open …" button laid invisibly over it (CSS), so
     the whole tile is the tap target and keeps the button's accessible name.
@@ -61,9 +61,16 @@ def _game_tile(key, art, title, line, *, alert=False, playable=True, real=True):
     coming-soon tile (real=False) has none."""
     tone = " game-tile-alert" if alert else ""
     off = "" if playable else " game-tile-off"
+    badge = ""
+    if invites:
+        number = str(invites) if invites <= 99 else "99+"
+        label = "invite" if invites == 1 else "invites"
+        badge = (f'<span class="game-tile-invite-badge" role="img" '
+                 f'aria-label="{invites} pending {escape(title)} {label}">{number} {label}</span>')
     with st.container(key=f"game_tile_{key}"):
         st.markdown(
             f'<div class="game-tile game-tile-{key}{off}"><img class="game-tile-art" src="{_art(art)}" alt="">'
+            f'{badge}'
             f'<div class="game-tile-text"><strong>{escape(title)}</strong>'
             f'<small class="{tone.strip()}">{escape(line)}</small></div></div>',
             unsafe_allow_html=True)
@@ -74,23 +81,26 @@ def _game_tile(key, art, title, line, *, alert=False, playable=True, real=True):
 COMING_SOON = [(f"soon_{n}", "coming-soon", "New game") for n in (1, 2)]
 
 
-def _game_cards(member, duels, *, service_available=True, focus_available=False, focus_qa=False):
+def _game_cards(player, season, member, duels, *, service_available=True):
     """Six colourful tiles (3 rows of 2): the playable games first, then what is coming.
     Frozen season rules decide whether the Reaction Test (Focus Challenge) is open;
     test seasons allow unlimited Reaction Test plays (focus_qa)."""
-    active = [d for d in duels if d['status'] in {'invited', 'accepted', 'started'}]
-    invitations = sum(d['opponent_id'] == member and d['status'] == 'invited' for d in active)
+    try:
+        invites = db.pending_minigame_invites(player, season.id)
+    except SERVICE_ERRORS:
+        invites = {}  # The next refresh retries. Players can still open each game.
+    active = any(d['status'] in {'accepted', 'started'}
+                 or (d['status'] == 'invited' and d['challenger_id'] == member) for d in duels)
+    focus_available, focus_qa = focus_enabled(season), focus_test_mode(season)
     if not service_available:
         chug_line = 'Unavailable'
-    elif invitations:
-        chug_line = f'{invitations} incoming invitation' + ('s' if invitations != 1 else '')
     elif active:
         chug_line = 'Duel open'
     else:
         chug_line = '1 vs 1 · Race on one phone'
     with st.container(key='games_grid'):
         if _game_tile('chug', 'chug-duel', 'Chug Duel', chug_line,
-                      alert=bool(invitations or active), playable=service_available):
+                      invites=invites.get('chug', 0), alert=active, playable=service_available):
             st.session_state['minigame_selected'] = 'chug_duel'
             st.rerun()
         if _game_tile('focus', 'reaction-test', 'Reaction Test',
@@ -99,10 +109,12 @@ def _game_cards(member, duels, *, service_available=True, focus_available=False,
                       playable=focus_available):
             st.session_state['minigame_selected'] = 'focus'
             st.rerun()
-        if _game_tile('quiz', 'quiz', 'Quiz Duel', '1 vs 1 · Stake 3–10 points'):
+        if _game_tile('quiz', 'quiz', 'Quiz Duel', '1 vs 1 · Stake 3–10 points',
+                      invites=invites.get('quiz', 0)):
             st.session_state['minigame_selected'] = 'quiz'
             st.rerun()
-        if _game_tile('time', 'time-duel', 'Time Duel', '1 vs 1 · Win ×1.25 for an hour'):
+        if _game_tile('time', 'time-duel', 'Time Duel', '1 vs 1 · Win ×1.25 for an hour',
+                      invites=invites.get('time', 0)):
             st.session_state['minigame_selected'] = 'time'
             st.rerun()
         for key, art, title in COMING_SOON:
@@ -246,7 +258,7 @@ def render_minigames(player, member, lobby, season):
         try:
             duels = db.list_chug_duels(player, season.id)
         except (ValueError, PermissionError) + SERVICE_ERRORS as error:
-            _game_cards(member, [], service_available=False, focus_available=focus_enabled(season), focus_qa=focus_test_mode(season))
+            _game_cards(player, season, member, [], service_available=False)
             _error(error)
             return
         running = next((d for d in duels if d["status"] == "started" and d["challenger_id"] == member), None)
@@ -261,9 +273,7 @@ def render_minigames(player, member, lobby, season):
         st.session_state.pop("chug_focused_duel", None)
         if st.session_state.get('minigame_selected') != 'chug_duel':
             # The game list; an opened game replaces it, like a page on a phone.
-            render_time_inbox(player, member, season, labels)
-            _game_cards(member, duels, focus_available=focus_enabled(season), focus_qa=focus_test_mode(season))
-            st.caption('Invitations update automatically.')
+            _game_cards(player, season, member, duels)
             return
         game_header('Chug Duel', '', 'minigames_home')
         track_location()

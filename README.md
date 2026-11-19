@@ -1,4 +1,4 @@
-# drinkingprojectprogramming (WeGoPub)
+# WeGoPub
 
 WeGoPub: a social drinking-game app where players log drinks with a photo
 and GPS location, capture territories on a map, and compete on a season
@@ -505,9 +505,13 @@ Real-phone difficulty calibration and complete deployed gameplay still need veri
 
 ### Minigame invite badge
 
-Apply [migration 023](migrations/023_minigame_invite_badge.sql) after the Chug,
+Apply [migration 022](migrations/022_quiz_duel_invite_list.sql) so Quiz Duel lists
+all pending invites. Apply [migration 023](migrations/023_minigame_invite_badge.sql) and
+[migration 024](migrations/024_minigame_tile_badges.sql) after the Chug,
 Quiz and Time Duel migrations. The Games tab checks every 10 seconds for pending
-incoming invitations in the selected season while the app is open.
+incoming invitations in the selected season. The catalogue checks every 3 seconds
+and shows the count on each duel's tile. Open the game to respond or manage
+a challenge you sent.
 
 ### Leaving and rejoining lobbies
 

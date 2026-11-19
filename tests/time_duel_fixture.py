@@ -11,7 +11,8 @@ ROOT=Path(__file__).resolve().parents[1]
 MIGRATIONS=['004_server_game_tables.sql','005_scoring_v1.sql','009_single_competition_lobbies.sql',
  '010_team_lobbies.sql','011_chug_duel.sql','012_qa_minigames.sql','012_player_lobby_choices.sql',
  '014_focus_challenge.sql','015_focus_test_replays.sql','016_quiz_duel.sql','016_leave_lobby.sql','017_time_duel.sql',
- '021_time_duel_invitations.sql']
+ '021_time_duel_invitations.sql','022_quiz_duel_invite_list.sql','023_minigame_invite_badge.sql',
+ '024_minigame_tile_badges.sql']
 
 
 class Fixture:

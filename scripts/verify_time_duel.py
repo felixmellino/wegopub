@@ -24,14 +24,16 @@ def rejected(call,reason):
 
 
 def verify_invite_badge(f):
-    migration = Path(__file__).resolve().parents[1] / 'migrations/023_minigame_invite_badge.sql'
-    f.conn.execute(migration.read_text().replace('statement_timestamp()', 'public.test_now()'))
     lobby, other = f.lobby(), f.lobby()
     season, recipient = lobby['sid'], lobby['mids'][1]
 
     def count(player, selected_season=season):
         return f.rpc('select pending_minigame_invite_count(%s,%s) as n',
                      (f.players[player], selected_season))['n']
+
+    def tiles(player, selected_season=season):
+        return f.rpc('select * from pending_minigame_invites(%s,%s)',
+                     (f.players[player], selected_season))
 
     time_duel = f.invite(lobby)
     quiz = uuid4()
@@ -43,21 +45,32 @@ def verify_invite_badge(f):
     f.rpc('select * from invite_chug_duel(%s,%s,%s,%s,%s,%s)',
           (f.players[3], season, chug, recipient, 'beer', 'small'))
     assert count(1) == 3
+    assert tiles(1) == dict(chug=1, quiz=1, time=1)
+    assert tiles(0) == tiles(2) == tiles(3) == tiles(6) == tiles(1, other['sid']) == dict(chug=0, quiz=0, time=0)
     assert count(0) == count(2) == count(3) == count(6) == count(1, other['sid']) == 0
+    second_time_duel = f.invite(lobby, 4, 1)
+    assert tiles(1)['time'] == 2 and count(1) == 4
+    f.act(second_time_duel, 4, 'cancel')
+    assert tiles(1)['time'] == 1 and count(1) == 3
     f.conn.execute('set role anon')
     try:
         rejected(lambda: f.conn.execute('select pending_minigame_invite_count(%s,%s)',
+                                        (f.players[1], season)), 'permission denied')
+        rejected(lambda: f.conn.execute('select * from pending_minigame_invites(%s,%s)',
                                         (f.players[1], season)), 'permission denied')
     finally:
         f.conn.execute('reset role')
     f.act(time_duel, 1, 'decline')
     assert count(1) == 2
+    assert tiles(1) == dict(chug=1, quiz=1, time=0)
     f.rpc('select quiz_action(%s,%s,%s,%s,%s)', (f.players[1], quiz, 'accept', None, None))
     assert count(1) == 1
+    assert tiles(1) == dict(chug=1, quiz=0, time=0)
     f.advance(600)
     assert count(1) == 0
+    assert tiles(1) == dict(chug=0, quiz=0, time=0)
     assert f.conn.execute('select status from chug_duels where id=%s', (chug,)).fetchone()['status'] == 'invited'
-    print('PASS: Games badge counts all three invite types, scopes access, and excludes handled and expired invites')
+    print('PASS: Games and tile badges scope all three counts and exclude handled and expired invites')
 
 
 def verify_invitations(f):

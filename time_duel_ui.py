@@ -27,8 +27,8 @@ def _act(player, duel, action):
         _error(error)
 
 
-def render_invitations(player, member, state, labels):
-    """Shared inbox on the catalogue and game screen; always use saved status."""
+def _render_invitations(player, member, state, labels):
+    """Render invitations using their saved status."""
     pending = [d for d in state['duels'] if d['status'] == 'invited']
     incoming = [d for d in pending if d['opponent_id'] == member]
     confirmation = st.session_state.get('time_accept_confirmation')
@@ -66,19 +66,6 @@ def render_invitations(player, member, state, labels):
                                    datetime.fromisoformat(duel['server_now'])).total_seconds()))
             st.caption(f'Expires in {remaining // 60}:{remaining % 60:02d}')
     return pending
-
-
-def render_time_inbox(player, member, season, labels):
-    try:
-        state = db.time_status(player, season.id)
-    except SERVICE_ERRORS as error:
-        _error(error)
-        return
-    render_invitations(player, member, state, labels)
-    if any(d['status'] in ACTIVE for d in state['duels']):
-        if st.button('Resume Time Duel', key='time_resume', type='primary'):
-            st.session_state['minigame_selected'] = 'time'
-            st.rerun()
 
 
 def render_time(player, member, lobby, season, members, labels):
@@ -130,7 +117,7 @@ def render_time(player, member, lobby, season, members, labels):
     cols = st.columns(2)
     cols[0].caption('Challenge: ' + ('Available' if state['outgoing'] else 'Used / reserved'))
     cols[1].caption('Accept: ' + ('Available' if state['incoming'] else 'Used / reserved'))
-    pending = render_invitations(player, member, state, labels)
+    pending = _render_invitations(player, member, state, labels)
     own = next(m for m in members if m.id == member)
     opponents = []
     for other in members:

@@ -19,6 +19,7 @@ def serve(f):
                 name=body['name'];p=body.get('parameters',{})
                 f.clock(base+timedelta(seconds=time.monotonic()-start))
                 if name=='fixture':result={**l,'players':f.players}
+                elif name=='pending_minigame_invites':result=f.rpc('select * from pending_minigame_invites(%s,%s)',(p['actor_player'],p['target_season']))
                 elif name=='time_status':result=f.rpc('select time_status(%s,%s) data',(p['actor_player'],p['target_season']))['data']
                 elif name=='invite_time_duel':result=f.rpc('select invite_time_duel(%s,%s,%s,%s) data',(p['actor_player'],p['target_season'],p['invitation_id'],p['opponent_member']))['data']
                 elif name=='time_action':result=f.rpc('select time_action(%s,%s,%s,%s,%s) data',(p['actor_player'],p['target_duel'],p['selected_action'],p.get('expected_round'),p.get('elapsed')))['data']

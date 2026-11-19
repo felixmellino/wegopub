@@ -38,7 +38,10 @@ def service(monkeypatch):
     monkeypatch.setattr(db, "list_memberships_for_lobby", lambda _: members)
     monkeypatch.setattr(db, "list_public_usernames", lambda: [{"id": "pa", "display_name": "Alice"}, {"id": "pb", "display_name": "Bob"}])
     monkeypatch.setattr(db, "list_chug_duels", lambda *args: deepcopy(state["duels"]))
-    monkeypatch.setattr(db, "time_status", lambda *args: dict(duels=[], incoming=True))
+    def pending_invites(player, _season):
+        return {"chug": sum(d["status"] == "invited" and d["opponent_id"] == player[-1]
+                            for d in state["duels"])}
+    monkeypatch.setattr(db, "pending_minigame_invites", pending_invites)
     monkeypatch.setattr("shared.require_login", lambda: __import__("streamlit").session_state["player_id"])
     monkeypatch.setattr("shared.require_active_membership", lambda: (__import__("streamlit").session_state["member"], "lobby", "season"))
     monkeypatch.setattr(ui, "current_time", lambda: START)
@@ -119,33 +122,46 @@ def test_catalogue_surfaces_invitations_and_opening_recovers_them(service):
     host = open_page()
     button(host, 'Challenge').click().run()
     guest = open_page('pb', 'b', selected=None)
-    assert any('1 incoming invitation' in m.value for m in guest.markdown if 'class="game-tile' in m.value)
+    assert any('aria-label="1 pending Chug Duel invite">1 invite</span>' in m.value for m in guest.markdown)
+    assert not any('game-tile-invite-badge" role=' in m.value for m in open_page(selected=None).markdown)
     assert not any(b.label == 'Accept' for b in guest.button)
     button(guest, 'Open Chug Duel').click().run()
     assert not guest.exception and button(guest, 'Accept')
     button(guest, 'Accept').click().run()
     assert service['duels'][0]['status'] == 'accepted'
+    button(guest, 'All games').click().run()
+    assert not any('game-tile-invite-badge" role=' in m.value for m in guest.markdown)
 
 
-def test_catalogue_shows_time_inbox_above_tiles_and_accept_opens_time(service, monkeypatch):
+def test_catalogue_shows_per_game_badges_and_leaves_invites_pending_until_resolved(service, monkeypatch):
     from tests.test_time_duel_ui import invitation
-    time_state = dict(duels=[invitation('time-one', 'a', 'b')], incoming=True)
+    time_state = dict(duels=[invitation('time-one', 'a', 'b')], incoming=True, outgoing=True,
+                      test_mode=False, open=True)
     monkeypatch.setattr(db, 'time_status', lambda *args: deepcopy(time_state))
-    def accept(*args):
-        assert args == ('pb', 'time-one', 'accept')
+    monkeypatch.setattr(db, 'pending_minigame_invites', lambda *_: dict(chug=0, quiz=2, time=len(time_state['duels'])))
+    def decline(*args):
+        assert args == ('pb', 'time-one', 'decline')
         time_state['duels'] = []
-        return dict(status='accepted')
-    monkeypatch.setattr(db, 'time_action', accept)
-    render = Mock()
-    monkeypatch.setattr(ui, 'render_time', render)
+        return dict(status='declined')
+    monkeypatch.setattr(db, 'time_action', decline)
     guest = open_page('pb', 'b', selected=None)
     assert not guest.exception
-    texts = [m.value for m in guest.markdown]
-    assert next(i for i, t in enumerate(texts) if 'Time Duel invitation' in t) < next(
-        i for i, t in enumerate(texts) if 'class="game-tile' in t)
-    button(guest, 'Accept Time Duel').click().run()
-    assert not guest.exception and guest.session_state['minigame_selected'] == 'time'
-    render.assert_called()
+    tiles = [m.value for m in guest.markdown if m.value.startswith('<div class="game-tile')]
+    assert [b.label for b in guest.button] == ['Open Chug Duel', 'Open Reaction Test', 'Open Quiz Duel', 'Open Time Duel']
+    assert 'aria-label="2 pending Quiz Duel invites">2 invites</span>' in tiles[2]
+    assert 'aria-label="1 pending Time Duel invite">1 invite</span>' in tiles[3]
+    assert sum('game-tile-invite-badge' in tile for tile in tiles) == 2
+
+    button(guest, 'Open Time Duel').click().run()
+    assert not guest.exception and button(guest, 'Accept Time Duel')
+    button(guest, 'All games').click().run()
+    assert any('aria-label="1 pending Time Duel invite"' in m.value for m in guest.markdown)
+
+    button(guest, 'Open Time Duel').click().run()
+    button(guest, 'Decline').click().run()
+    button(guest, 'All games').click().run()
+    assert not any('pending Time Duel invite' in m.value for m in guest.markdown)
+    assert any('aria-label="2 pending Quiz Duel invites"' in m.value for m in guest.markdown)
 
 
 def test_changing_lobby_context_returns_to_catalogue(service):

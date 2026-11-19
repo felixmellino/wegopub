@@ -8,6 +8,8 @@ import data.db as db
 from core.models import Lobby,LobbyMembership
 from tests.test_scoring_v1 import START,season
 from minigames_ui import render_minigames
+from app_navigation import bottom_navigation, minigame_invite_badge
+from types import SimpleNamespace
 
 st.set_page_config(page_title='Time Duel local test',layout='centered')
 root=Path(__file__).resolve().parents[2]
@@ -32,6 +34,12 @@ lobby=Lobby(info['lid'],'Synthetic Time Duel','LOCAL')
 db.list_memberships_for_lobby=lambda _:members
 db.list_public_usernames=lambda:[dict(id=m.player_id,display_name=labels[m.id]) for m in members]
 db.list_chug_duels=lambda *args:[]
+db.pending_minigame_invites=lambda player,season_id:request(dict(name='pending_minigame_invites',
+    parameters=dict(actor_player=player,target_season=season_id)))
+db.pending_minigame_invite_count=lambda player,season_id:sum(db.pending_minigame_invites(player,season_id).values())
 
-
+st.session_state.update(player_id=info['players'][p],current_season_id=game.id,
+                        _validated_player=SimpleNamespace(id=info['players'][p]))
+bottom_navigation('minigames')
+minigame_invite_badge()
 render_minigames(info['players'][p],info['mids'][p],lobby,game)
