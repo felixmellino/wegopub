@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "drinkingprojectprogramming-streamlit",
+      "runtimeExecutable": "/Users/nikla1/Documents/Documents - Niklas’s MacBook Air/Master NOVA SBE /Classes/Intro to Programming/Group Project/drinkingprojectprogramming/.venv/bin/streamlit",
+      "runtimeArgs": ["run", "app.py", "--server.port", "8502", "--server.headless", "true"],
+      "port": 8502
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+<style>
+.d{animation:p 1.5s ease-in-out infinite}
+.d2{animation-delay:.25s}.d3{animation-delay:.5s}
+@keyframes p{0%,100%{opacity:.35;transform:translateY(0)}40%{opacity:1;transform:translateY(-6px)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+<rect x="24" y="34" width="72" height="56" rx="14" fill="none" stroke="#9AAAB8" stroke-width="3.5" stroke-dasharray="8 7"/>
+<circle class="d" cx="44" cy="62" r="6" fill="#9AAAB8"/>
+<circle class="d d2" cx="60" cy="62" r="6" fill="#9AAAB8"/>
+<circle class="d d3" cx="76" cy="62" r="6" fill="#9AAAB8"/>
+</svg>

@@ -1,0 +1,52 @@
+/* The create-account/log-in screen only, scoped by the account_scene
+   container key set in account_ui.show_accounts(). */
+.stApp:has([class*="st-key-account_scene"]) {
+  background: radial-gradient(120% 70% at 50% -10%, var(--accent-soft) 0%, var(--bg) 60%);
+}
+[class*="st-key-account_scene"] { max-width: 420px; margin: 1.5rem auto 0; }
+[class*="st-key-account_scene"] .wego-wordmark { text-align: center; width: 100%; margin: 0.4rem 0 0; }
+[class*="st-key-account_scene"] [data-testid="stCaptionContainer"] { text-align: center; margin-bottom: 1.3rem; }
+
+/* Create account / Log in toggle: a plain pill segmented control. */
+[class*="st-key-account_scene"] [data-testid="stRadio"] [role="radiogroup"] {
+  display: inline-flex; gap: 4px; background: var(--surface); border-radius: var(--radius-pill);
+  padding: 4px; box-shadow: var(--shadow-card); margin: 0 auto 1.1rem; width: fit-content;
+}
+[class*="st-key-account_scene"] [data-testid="stRadioOption"] {
+  flex: 0 0 auto; justify-content: center; border-radius: var(--radius-pill);
+  padding: 0.55rem 1.1rem; margin: 0; white-space: nowrap;
+  cursor: pointer; transition: background 150ms ease;
+}
+[class*="st-key-account_scene"] [data-testid="stRadioOption"] > div > div:first-child { display: none; }
+[class*="st-key-account_scene"] [data-testid="stRadioOption"] label p { color: var(--text-muted); font-weight: 650; }
+[class*="st-key-account_scene"] [data-testid="stRadioOption"]:has(input:checked) { background: var(--accent); }
+[class*="st-key-account_scene"] [data-testid="stRadioOption"]:has(input:checked) p { color: var(--on-accent); }
+[class*="st-key-account_scene"] [data-testid="stRadioOption"]:has(input:focus-visible) {
+  outline: 3px solid var(--accent-ink); outline-offset: 2px;
+}
+
+/* The card: 24px outer radius, 20px padding -> inputs and the submit button,
+   which sit flush against that padding, take the remainder (4px). Their
+   corners are then concentric with the card's rather than an arbitrary
+   match, and the shadow is tinted toward the page's own sky gradient. */
+[class*="st-key-account_scene"] [data-testid="stForm"] {
+  border-radius: 24px;
+  padding: 20px;
+  box-shadow: 0 1px 2px rgba(44, 153, 214, 0.1), 0 24px 48px -16px rgba(44, 153, 214, 0.38);
+  animation: account-card-in 460ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+[class*="st-key-account_scene"] [data-testid="stForm"] [data-testid="stTextInput"] input,
+[class*="st-key-account_scene"] [data-testid="stForm"] [data-baseweb="input"] {
+  border-radius: 4px;
+}
+[class*="st-key-account_scene"] [data-testid="stForm"] [data-testid="stBaseButton-primaryFormSubmit"],
+[class*="st-key-account_scene"] [data-testid="stForm"] [data-testid="stBaseButton-secondaryFormSubmit"] {
+  border-radius: 4px;
+}
+@keyframes account-card-in {
+  from { opacity: 0; transform: translateY(16px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+@media (max-width: 480px) {
+  [class*="st-key-account_scene"] { max-width: 100%; padding: 0 4px; }
+}

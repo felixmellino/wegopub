@@ -1,0 +1,1807 @@
+{
+  "schema_version": 1,
+  "bank_version": "general-en-v1",
+  "language": "en",
+  "questions": [
+    {
+      "id": "general-v1-001",
+      "category": "general",
+      "topic": "Geography",
+      "question": "Which country has Lisbon as its capital?",
+      "options": [
+        "Spain",
+        "Italy",
+        "Portugal",
+        "Greece"
+      ],
+      "correct_index": 2,
+      "explanation": "Lisbon is the capital of Portugal.",
+      "difficulty": "easy",
+      "reference_period": "Stable fact",
+      "source_url": "https://european-union.europa.eu/principles-countries-history/eu-countries/portugal_en",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-002",
+      "category": "general",
+      "topic": "Geography",
+      "question": "What is the capital of Spain?",
+      "options": [
+        "Valencia",
+        "Barcelona",
+        "Seville",
+        "Madrid"
+      ],
+      "correct_index": 3,
+      "explanation": "Madrid is Spain's capital.",
+      "difficulty": "easy",
+      "reference_period": "Stable fact",
+      "source_url": "https://european-union.europa.eu/principles-countries-history/eu-countries/spain_en",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-003",
+      "category": "general",
+      "topic": "Geography",
+      "question": "What is the capital of Italy?",
+      "options": [
+        "Naples",
+        "Rome",
+        "Venice",
+        "Milan"
+      ],
+      "correct_index": 1,
+      "explanation": "Rome is the capital of Italy.",
+      "difficulty": "easy",
+      "reference_period": "Stable fact",
+      "source_url": "https://european-union.europa.eu/principles-countries-history/eu-countries/italy_en",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-004",
+      "category": "general",
+      "topic": "Geography",
+      "question": "What is the capital of France?",
+      "options": [
+        "Paris",
+        "Nice",
+        "Marseille",
+        "Lyon"
+      ],
+      "correct_index": 0,
+      "explanation": "Paris is the capital of France.",
+      "difficulty": "easy",
+      "reference_period": "Stable fact",
+      "source_url": "https://european-union.europa.eu/principles-countries-history/eu-countries/france_en",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-005",
+      "category": "general",
+      "topic": "Geography",
+      "question": "In which country are the Pyramids of Giza?",
+      "options": [
+        "Egypt",
+        "Greece",
+        "Jordan",
+        "Mexico"
+      ],
+      "correct_index": 0,
+      "explanation": "The Giza pyramids are near Cairo in Egypt.",
+      "difficulty": "easy",
+      "reference_period": "Stable fact",
+      "source_url": "https://en.wikipedia.org/wiki/Giza_pyramid_complex",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-006",
+      "category": "general",
+      "topic": "Geography",
+      "question": "On which continent is Brazil?",
+      "options": [
+        "South America",
+        "Africa",
+        "Asia",
+        "North America"
+      ],
+      "correct_index": 0,
+      "explanation": "Brazil is in South America.",
+      "difficulty": "easy",
+      "reference_period": "Stable fact",
+      "source_url": "https://www.ibge.gov.br/apps/quadrogeografico/pdf/qg_2024_000_Brasil.pdf",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-007",
+      "category": "general",
+      "topic": "Geography",
+      "question": "What is Japan's currency?",
+      "options": [
+        "Yen",
+        "Yuan",
+        "Baht",
+        "Won"
+      ],
+      "correct_index": 0,
+      "explanation": "Japan uses the yen.",
+      "difficulty": "easy-medium",
+      "reference_period": "Stable fact",
+      "source_url": "https://en.wikipedia.org/wiki/Japanese_yen",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-008",
+      "category": "general",
+      "topic": "Geography",
+      "question": "What is the currency of the United Kingdom?",
+      "options": [
+        "US dollar",
+        "Euro",
+        "Swiss franc",
+        "Pound sterling"
+      ],
+      "correct_index": 3,
+      "explanation": "The UK's currency is the pound sterling.",
+      "difficulty": "easy",
+      "reference_period": "Stable fact",
+      "source_url": "https://www.bankofengland.co.uk/banknotes",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-009",
+      "category": "general",
+      "topic": "Geography",
+      "question": "Which ocean lies between Europe and North America?",
+      "options": [
+        "Atlantic Ocean",
+        "Indian Ocean",
+        "Southern Ocean",
+        "Pacific Ocean"
+      ],
+      "correct_index": 0,
+      "explanation": "The Atlantic separates Europe from North America.",
+      "difficulty": "easy",
+      "reference_period": "Stable fact",
+      "source_url": "https://en.wikipedia.org/wiki/Atlantic_Ocean",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-010",
+      "category": "general",
+      "topic": "Geography",
+      "question": "In which mountain range is Mount Everest?",
+      "options": [
+        "Himalayas",
+        "Rocky Mountains",
+        "Andes",
+        "Alps"
+      ],
+      "correct_index": 0,
+      "explanation": "Mount Everest is part of the Himalayas.",
+      "difficulty": "easy-medium",
+      "reference_period": "Stable fact",
+      "source_url": "https://en.wikipedia.org/wiki/Mount_Everest",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-011",
+      "category": "general",
+      "topic": "Geography",
+      "question": "In which country is Venice?",
+      "options": [
+        "France",
+        "Croatia",
+        "Spain",
+        "Italy"
+      ],
+      "correct_index": 3,
+      "explanation": "Venice is a city in north-eastern Italy.",
+      "difficulty": "easy",
+      "reference_period": "Stable fact",
+      "source_url": "https://en.wikipedia.org/wiki/Venice",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-012",
+      "category": "general",
+      "topic": "Geography",
+      "question": "Which river flows past Lisbon?",
+      "options": [
+        "Mondego",
+        "Guadiana",
+        "Tagus",
+        "Douro"
+      ],
+      "correct_index": 2,
+      "explanation": "The Tagus is called the Tejo in Portuguese.",
+      "difficulty": "easy-medium",
+      "reference_period": "Stable fact",
+      "source_url": "https://en.wikipedia.org/wiki/Tagus",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-013",
+      "category": "general",
+      "topic": "Geography",
+      "question": "Which country is directly west of Spain on the Iberian Peninsula?",
+      "options": [
+        "Italy",
+        "Morocco",
+        "France",
+        "Portugal"
+      ],
+      "correct_index": 3,
+      "explanation": "Portugal occupies the western side of the Iberian Peninsula.",
+      "difficulty": "easy",
+      "reference_period": "Stable fact",
+      "source_url": "https://european-union.europa.eu/principles-countries-history/eu-countries/portugal_en",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-014",
+      "category": "general",
+      "topic": "Geography",
+      "question": "What is the official language of Brazil?",
+      "options": [
+        "Spanish",
+        "English",
+        "French",
+        "Portuguese"
+      ],
+      "correct_index": 3,
+      "explanation": "Portuguese is Brazil's official language.",
+      "difficulty": "easy",
+      "reference_period": "Stable fact",
+      "source_url": "https://en.wikipedia.org/wiki/Brazil",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-015",
+      "category": "general",
+      "topic": "Geography",
+      "question": "What is the capital of Germany?",
+      "options": [
+        "Munich",
+        "Berlin",
+        "Hamburg",
+        "Frankfurt"
+      ],
+      "correct_index": 1,
+      "explanation": "Berlin is Germany's capital.",
+      "difficulty": "easy",
+      "reference_period": "Stable fact",
+      "source_url": "https://european-union.europa.eu/principles-countries-history/eu-countries/germany_en",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-016",
+      "category": "general",
+      "topic": "Geography",
+      "question": "Which European country is famously shaped like a boot?",
+      "options": [
+        "Italy",
+        "Greece",
+        "Spain",
+        "Croatia"
+      ],
+      "correct_index": 0,
+      "explanation": "Italy's peninsula is commonly compared to a boot.",
+      "difficulty": "easy",
+      "reference_period": "Stable fact",
+      "source_url": "https://en.wikipedia.org/wiki/Italy",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-017",
+      "category": "general",
+      "topic": "Geography",
+      "question": "Which country has Reykjavík as its capital?",
+      "options": [
+        "Finland",
+        "Norway",
+        "Iceland",
+        "Ireland"
+      ],
+      "correct_index": 2,
+      "explanation": "Reykjavík is Iceland's capital.",
+      "difficulty": "easy-medium",
+      "reference_period": "Stable fact",
+      "source_url": "https://en.wikipedia.org/wiki/Iceland",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-018",
+      "category": "general",
+      "topic": "Geography",
+      "question": "In which country is Sydney?",
+      "options": [
+        "South Africa",
+        "New Zealand",
+        "Australia",
+        "Canada"
+      ],
+      "correct_index": 2,
+      "explanation": "Sydney is in New South Wales, Australia.",
+      "difficulty": "easy",
+      "reference_period": "Stable fact",
+      "source_url": "https://en.wikipedia.org/wiki/Sydney",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-019",
+      "category": "general",
+      "topic": "Geography",
+      "question": "In which Spanish city is the Sagrada Família?",
+      "options": [
+        "Madrid",
+        "Barcelona",
+        "Seville",
+        "Valencia"
+      ],
+      "correct_index": 1,
+      "explanation": "The basilica is in Barcelona.",
+      "difficulty": "easy",
+      "reference_period": "Stable fact",
+      "source_url": "https://en.wikipedia.org/wiki/Sagrada_Fam%C3%ADlia",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-020",
+      "category": "general",
+      "topic": "Geography",
+      "question": "Which country is often called the Land of the Rising Sun?",
+      "options": [
+        "China",
+        "Thailand",
+        "South Korea",
+        "Japan"
+      ],
+      "correct_index": 3,
+      "explanation": "This nickname is commonly used for Japan.",
+      "difficulty": "easy",
+      "reference_period": "Stable fact",
+      "source_url": "https://en.wikipedia.org/wiki/Japan",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-021",
+      "category": "general",
+      "topic": "Science & the human body",
+      "question": "Which planet is known as the Red Planet?",
+      "options": [
+        "Mercury",
+        "Venus",
+        "Mars",
+        "Jupiter"
+      ],
+      "correct_index": 2,
+      "explanation": "Iron-rich material gives Mars its reddish appearance.",
+      "difficulty": "easy",
+      "reference_period": "Stable fact",
+      "source_url": "https://science.nasa.gov/mars/facts/",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-022",
+      "category": "general",
+      "topic": "Science & the human body",
+      "question": "Which is the largest planet in our solar system?",
+      "options": [
+        "Earth",
+        "Jupiter",
+        "Neptune",
+        "Saturn"
+      ],
+      "correct_index": 1,
+      "explanation": "Jupiter is the solar system's largest planet.",
+      "difficulty": "easy",
+      "reference_period": "Stable fact",
+      "source_url": "https://science.nasa.gov/jupiter/jupiter-facts/",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-023",
+      "category": "general",
+      "topic": "Science & the human body",
+      "question": "What is Earth's natural satellite called?",
+      "options": [
+        "Venus",
+        "Mars",
+        "The Moon",
+        "The Sun"
+      ],
+      "correct_index": 2,
+      "explanation": "The Moon is Earth's natural satellite.",
+      "difficulty": "easy",
+      "reference_period": "Stable fact",
+      "source_url": "https://solarsystem.nasa.gov/moons/earths-moon/in-depth.amp",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-024",
+      "category": "general",
+      "topic": "Science & the human body",
+      "question": "How many legs does an insect have?",
+      "options": [
+        "Four",
+        "Six",
+        "Ten",
+        "Eight"
+      ],
+      "correct_index": 1,
+      "explanation": "Adult insects have three pairs of legs.",
+      "difficulty": "easy-medium",
+      "reference_period": "Stable fact",
+      "source_url": "https://en.wikipedia.org/wiki/Insect",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-025",
+      "category": "general",
+      "topic": "Science & the human body",
+      "question": "What substance has the chemical formula H₂O?",
+      "options": [
+        "Salt",
+        "Carbon dioxide",
+        "Oxygen",
+        "Water"
+      ],
+      "correct_index": 3,
+      "explanation": "A water molecule contains two hydrogen atoms and one oxygen atom.",
+      "difficulty": "easy",
+      "reference_period": "Stable fact",
+      "source_url": "https://en.wikipedia.org/wiki/Water",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-026",
+      "category": "general",
+      "topic": "Science & the human body",
+      "question": "At normal atmospheric pressure, at what temperature does pure water freeze on the Celsius scale?",
+      "options": [
+        "100°C",
+        "10°C",
+        "−10°C",
+        "0°C"
+      ],
+      "correct_index": 3,
+      "explanation": "Pure water freezes at 0°C under normal atmospheric pressure.",
+      "difficulty": "easy",
+      "reference_period": "Stable fact",
+      "source_url": "https://en.wikipedia.org/wiki/Freezing",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-027",
+      "category": "general",
+      "topic": "Science & the human body",
+      "question": "Which organ pumps blood around the human body?",
+      "options": [
+        "Kidney",
+        "Heart",
+        "Liver",
+        "Stomach"
+      ],
+      "correct_index": 1,
+      "explanation": "The heart pumps blood through the circulatory system.",
+      "difficulty": "easy",
+      "reference_period": "Stable fact",
+      "source_url": "https://www.nhlbi.nih.gov/health/heart",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-028",
+      "category": "general",
+      "topic": "Science & the human body",
+      "question": "Which organs do people mainly use to breathe?",
+      "options": [
+        "Stomach and intestines",
+        "Lungs",
+        "Liver and gallbladder",
+        "Kidneys"
+      ],
+      "correct_index": 1,
+      "explanation": "The lungs exchange oxygen and carbon dioxide with the blood.",
+      "difficulty": "easy",
+      "reference_period": "Stable fact",
+      "source_url": "https://www.nhlbi.nih.gov/health/lungs/breathing-benefits",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-029",
+      "category": "general",
+      "topic": "Science & the human body",
+      "question": "What is the largest organ of the human body?",
+      "options": [
+        "Skin",
+        "Lungs",
+        "Liver",
+        "Brain"
+      ],
+      "correct_index": 0,
+      "explanation": "The skin is the body's largest organ.",
+      "difficulty": "easy-medium",
+      "reference_period": "Stable fact",
+      "source_url": "https://en.wikipedia.org/wiki/Skin",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-030",
+      "category": "general",
+      "topic": "Science & the human body",
+      "question": "Which gas do humans need from the air to survive?",
+      "options": [
+        "Carbon dioxide",
+        "Argon",
+        "Helium",
+        "Oxygen"
+      ],
+      "correct_index": 3,
+      "explanation": "The body uses oxygen for normal cellular respiration.",
+      "difficulty": "easy",
+      "reference_period": "Stable fact",
+      "source_url": "https://www.nhlbi.nih.gov/health/lungs/breathing-benefits",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-031",
+      "category": "general",
+      "topic": "Science & the human body",
+      "question": "Which force keeps the planets in orbit around the Sun?",
+      "options": [
+        "Gravity",
+        "Air resistance",
+        "Magnetism",
+        "Friction"
+      ],
+      "correct_index": 0,
+      "explanation": "The Sun's gravity keeps planets in orbit.",
+      "difficulty": "easy",
+      "reference_period": "Stable fact",
+      "source_url": "https://spaceplace.nasa.gov/what-is-gravity/en/",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-032",
+      "category": "general",
+      "topic": "Science & the human body",
+      "question": "Which instrument is used to measure temperature?",
+      "options": [
+        "Compass",
+        "Speedometer",
+        "Barometer",
+        "Thermometer"
+      ],
+      "correct_index": 3,
+      "explanation": "A thermometer measures temperature.",
+      "difficulty": "easy",
+      "reference_period": "Stable fact",
+      "source_url": "https://en.wikipedia.org/wiki/Thermometer",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-033",
+      "category": "general",
+      "topic": "Science & the human body",
+      "question": "Which part of a plant mainly absorbs water from the soil?",
+      "options": [
+        "Petals",
+        "Flowers",
+        "Fruit",
+        "Roots"
+      ],
+      "correct_index": 3,
+      "explanation": "Roots take up water from the soil.",
+      "difficulty": "easy-medium",
+      "reference_period": "Stable fact",
+      "source_url": "https://en.wikipedia.org/wiki/Root",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-034",
+      "category": "general",
+      "topic": "Science & the human body",
+      "question": "How many sides does a hexagon have?",
+      "options": [
+        "Five",
+        "Eight",
+        "Six",
+        "Seven"
+      ],
+      "correct_index": 2,
+      "explanation": "A hexagon is a six-sided polygon.",
+      "difficulty": "easy",
+      "reference_period": "Stable fact",
+      "source_url": "https://en.wikipedia.org/wiki/Hexagon",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-035",
+      "category": "general",
+      "topic": "Science & the human body",
+      "question": "What do solar panels use to generate electricity?",
+      "options": [
+        "Heat from Earth's interior",
+        "Sunlight",
+        "Ocean tides",
+        "Wind"
+      ],
+      "correct_index": 1,
+      "explanation": "Photovoltaic solar panels convert light into electricity.",
+      "difficulty": "easy",
+      "reference_period": "Stable fact",
+      "source_url": "https://www.energy.gov/eere/solar/how-does-solar-work",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-036",
+      "category": "general",
+      "topic": "Animals & nature",
+      "question": "Which is the tallest living land animal?",
+      "options": [
+        "Camel",
+        "Elephant",
+        "Giraffe",
+        "Ostrich"
+      ],
+      "correct_index": 2,
+      "explanation": "Giraffes are the tallest living land animals.",
+      "difficulty": "easy-medium",
+      "reference_period": "Stable fact",
+      "source_url": "https://en.wikipedia.org/wiki/Giraffe",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-037",
+      "category": "general",
+      "topic": "Animals & nature",
+      "question": "Which is the largest living animal?",
+      "options": [
+        "African elephant",
+        "Orca",
+        "Blue whale",
+        "Whale shark"
+      ],
+      "correct_index": 2,
+      "explanation": "The blue whale is the largest living animal.",
+      "difficulty": "easy",
+      "reference_period": "Stable fact",
+      "source_url": "https://en.wikipedia.org/wiki/Blue_whale",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-038",
+      "category": "general",
+      "topic": "Animals & nature",
+      "question": "Which of these birds cannot fly?",
+      "options": [
+        "Parrot",
+        "Penguin",
+        "Eagle",
+        "Sparrow"
+      ],
+      "correct_index": 1,
+      "explanation": "Penguins swim but cannot fly.",
+      "difficulty": "easy",
+      "reference_period": "Stable fact",
+      "source_url": "https://en.wikipedia.org/wiki/Penguin",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-039",
+      "category": "general",
+      "topic": "Animals & nature",
+      "question": "Which insects produce the honey commonly sold in jars?",
+      "options": [
+        "Honeybees",
+        "Butterflies",
+        "Mosquitoes",
+        "Grasshoppers"
+      ],
+      "correct_index": 0,
+      "explanation": "Honeybees make honey from nectar.",
+      "difficulty": "easy-medium",
+      "reference_period": "Stable fact",
+      "source_url": "https://en.wikipedia.org/wiki/Honey",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-040",
+      "category": "general",
+      "topic": "Animals & nature",
+      "question": "Which of these mammals lays eggs?",
+      "options": [
+        "Seal",
+        "Otter",
+        "Beaver",
+        "Platypus"
+      ],
+      "correct_index": 3,
+      "explanation": "The platypus is an egg-laying mammal.",
+      "difficulty": "easy-medium",
+      "reference_period": "Stable fact",
+      "source_url": "https://en.wikipedia.org/wiki/Platypus",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-041",
+      "category": "general",
+      "topic": "Animals & nature",
+      "question": "Which tree produces acorns?",
+      "options": [
+        "Birch",
+        "Maple",
+        "Oak",
+        "Pine"
+      ],
+      "correct_index": 2,
+      "explanation": "Acorns are the fruits of oak trees.",
+      "difficulty": "easy-medium",
+      "reference_period": "Stable fact",
+      "source_url": "https://en.wikipedia.org/wiki/Oak",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-042",
+      "category": "general",
+      "topic": "Animals & nature",
+      "question": "In which season do most deciduous trees in northern Europe lose their leaves?",
+      "options": [
+        "Winter",
+        "Summer",
+        "Spring",
+        "Autumn"
+      ],
+      "correct_index": 3,
+      "explanation": "Many deciduous trees shed their leaves in autumn.",
+      "difficulty": "easy",
+      "reference_period": "Stable fact",
+      "source_url": "https://en.wikipedia.org/wiki/Autumn",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-043",
+      "category": "general",
+      "topic": "Animals & nature",
+      "question": "Which of these animals has a caterpillar stage?",
+      "options": [
+        "Bee",
+        "Dragonfly",
+        "Ladybird",
+        "Butterfly"
+      ],
+      "correct_index": 3,
+      "explanation": "A butterfly's larval stage is a caterpillar.",
+      "difficulty": "easy",
+      "reference_period": "Stable fact",
+      "source_url": "https://en.wikipedia.org/wiki/Butterfly",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-044",
+      "category": "general",
+      "topic": "Animals & nature",
+      "question": "What type of animal is a dolphin?",
+      "options": [
+        "Reptile",
+        "Mammal",
+        "Amphibian",
+        "Fish"
+      ],
+      "correct_index": 1,
+      "explanation": "Dolphins breathe air and feed their young with milk.",
+      "difficulty": "easy",
+      "reference_period": "Stable fact",
+      "source_url": "https://en.wikipedia.org/wiki/Dolphin",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-045",
+      "category": "general",
+      "topic": "Animals & nature",
+      "question": "Which gas do plants take in for photosynthesis?",
+      "options": [
+        "Helium",
+        "Neon",
+        "Carbon dioxide",
+        "Oxygen"
+      ],
+      "correct_index": 2,
+      "explanation": "Plants use carbon dioxide to make sugars during photosynthesis.",
+      "difficulty": "easy",
+      "reference_period": "Stable fact",
+      "source_url": "https://en.wikipedia.org/wiki/Photosynthesis",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-046",
+      "category": "general",
+      "topic": "Food & drink",
+      "question": "What is the main ingredient in guacamole?",
+      "options": [
+        "Cucumber",
+        "Avocado",
+        "Courgette",
+        "Green pepper"
+      ],
+      "correct_index": 1,
+      "explanation": "Guacamole is made mainly from avocado.",
+      "difficulty": "easy-medium",
+      "reference_period": "Stable fact",
+      "source_url": "https://www.bbcgoodfood.com/recipes/best-ever-chunky-guacamole",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-047",
+      "category": "general",
+      "topic": "Food & drink",
+      "question": "Sushi is most closely associated with which country's cuisine?",
+      "options": [
+        "South Korea",
+        "China",
+        "Thailand",
+        "Japan"
+      ],
+      "correct_index": 3,
+      "explanation": "Sushi is a well-known part of Japanese cuisine.",
+      "difficulty": "easy",
+      "reference_period": "Stable fact",
+      "source_url": "https://en.wikipedia.org/wiki/Sushi",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-048",
+      "category": "general",
+      "topic": "Food & drink",
+      "question": "Which fruit is normally used to make traditional red and white wine?",
+      "options": [
+        "Apples",
+        "Grapes",
+        "Cherries",
+        "Plums"
+      ],
+      "correct_index": 1,
+      "explanation": "Traditional red and white wines are made from grapes.",
+      "difficulty": "easy-medium",
+      "reference_period": "Stable fact",
+      "source_url": "https://en.wikipedia.org/wiki/Wine",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-049",
+      "category": "general",
+      "topic": "Food & drink",
+      "question": "What is the main ingredient in traditional hummus?",
+      "options": [
+        "White beans",
+        "Lentils",
+        "Green peas",
+        "Chickpeas"
+      ],
+      "correct_index": 3,
+      "explanation": "Traditional hummus is made with chickpeas and tahini.",
+      "difficulty": "easy-medium",
+      "reference_period": "Stable fact",
+      "source_url": "https://www.bbcgoodfood.com/recipes/easy-hummus-recipe",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-050",
+      "category": "general",
+      "topic": "Food & drink",
+      "question": "Which herb is a main ingredient of traditional pesto alla genovese?",
+      "options": [
+        "Basil",
+        "Parsley",
+        "Mint",
+        "Coriander"
+      ],
+      "correct_index": 0,
+      "explanation": "Pesto alla genovese is made with basil.",
+      "difficulty": "easy-medium",
+      "reference_period": "Stable fact",
+      "source_url": "https://www.bbcgoodfood.com/recipes/classic-pesto",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-051",
+      "category": "general",
+      "topic": "Food & drink",
+      "question": "Which coffee drink normally has a thick layer of milk foam?",
+      "options": [
+        "Americano",
+        "Espresso",
+        "Cappuccino",
+        "Black cold brew"
+      ],
+      "correct_index": 2,
+      "explanation": "A cappuccino combines espresso, steamed milk and milk foam.",
+      "difficulty": "easy",
+      "reference_period": "Stable fact",
+      "source_url": "https://en.wikipedia.org/wiki/Cappuccino",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-052",
+      "category": "general",
+      "topic": "Food & drink",
+      "question": "Paella is a traditional dish from which country?",
+      "options": [
+        "Greece",
+        "Portugal",
+        "Spain",
+        "Italy"
+      ],
+      "correct_index": 2,
+      "explanation": "Paella originated in the Valencia region of Spain.",
+      "difficulty": "easy",
+      "reference_period": "Stable fact",
+      "source_url": "https://en.wikipedia.org/wiki/Paella",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-053",
+      "category": "general",
+      "topic": "Food & drink",
+      "question": "Which spice is especially known for giving food a bright yellow colour?",
+      "options": [
+        "Paprika",
+        "Cinnamon",
+        "Turmeric",
+        "Black pepper"
+      ],
+      "correct_index": 2,
+      "explanation": "Turmeric gives many dishes a golden-yellow colour.",
+      "difficulty": "easy",
+      "reference_period": "Stable fact",
+      "source_url": "https://en.wikipedia.org/wiki/Turmeric",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-054",
+      "category": "general",
+      "topic": "Food & drink",
+      "question": "What vegetable is a main ingredient of traditional tzatziki, alongside yoghurt?",
+      "options": [
+        "Courgette",
+        "Cucumber",
+        "Avocado",
+        "Green pepper"
+      ],
+      "correct_index": 1,
+      "explanation": "Traditional tzatziki is made with yoghurt and cucumber.",
+      "difficulty": "easy-medium",
+      "reference_period": "Stable fact",
+      "source_url": "https://en.wikipedia.org/wiki/Tzatziki",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-055",
+      "category": "general",
+      "topic": "Food & drink",
+      "question": "Which nut is the main ingredient in traditional marzipan?",
+      "options": [
+        "Walnuts",
+        "Cashews",
+        "Hazelnuts",
+        "Almonds"
+      ],
+      "correct_index": 3,
+      "explanation": "Traditional marzipan is made from almonds and sugar.",
+      "difficulty": "easy-medium",
+      "reference_period": "Stable fact",
+      "source_url": "https://www.bbcgoodfood.com/recipes/easy-vanilla-marzipan",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-056",
+      "category": "general",
+      "topic": "Film, music & entertainment",
+      "question": "Which school does Harry Potter attend?",
+      "options": [
+        "Ilvermorny",
+        "Hogwarts",
+        "Durmstrang",
+        "Beauxbatons"
+      ],
+      "correct_index": 1,
+      "explanation": "Harry attends Hogwarts School of Witchcraft and Wizardry.",
+      "difficulty": "easy",
+      "reference_period": "Stable fact",
+      "source_url": "https://en.wikipedia.org/wiki/Hogwarts",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-057",
+      "category": "general",
+      "topic": "Film, music & entertainment",
+      "question": "In which film series does the toy cowboy Woody appear?",
+      "options": [
+        "Finding Nemo",
+        "Toy Story",
+        "Cars",
+        "Monsters, Inc."
+      ],
+      "correct_index": 1,
+      "explanation": "Woody is one of the main characters in Toy Story.",
+      "difficulty": "easy-medium",
+      "reference_period": "Stable fact",
+      "source_url": "https://www.pixar.com/toy-story",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-058",
+      "category": "general",
+      "topic": "Film, music & entertainment",
+      "question": "Who released the song Shape of You?",
+      "options": [
+        "Shawn Mendes",
+        "Ed Sheeran",
+        "Bruno Mars",
+        "Justin Bieber"
+      ],
+      "correct_index": 1,
+      "explanation": "Shape of You was released by Ed Sheeran.",
+      "difficulty": "easy",
+      "reference_period": "2017",
+      "source_url": "https://en.wikipedia.org/wiki/Shape_of_You",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-059",
+      "category": "general",
+      "topic": "Film, music & entertainment",
+      "question": "Which band had Freddie Mercury as its lead singer?",
+      "options": [
+        "Coldplay",
+        "ABBA",
+        "Queen",
+        "Oasis"
+      ],
+      "correct_index": 2,
+      "explanation": "Freddie Mercury was Queen's lead singer.",
+      "difficulty": "easy-medium",
+      "reference_period": "Stable fact",
+      "source_url": "https://en.wikipedia.org/wiki/Freddie_Mercury",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-060",
+      "category": "general",
+      "topic": "Film, music & entertainment",
+      "question": "Hollywood is a district of which US city?",
+      "options": [
+        "Miami",
+        "San Francisco",
+        "New York City",
+        "Los Angeles"
+      ],
+      "correct_index": 3,
+      "explanation": "Hollywood is a district of Los Angeles.",
+      "difficulty": "easy-medium",
+      "reference_period": "Stable fact",
+      "source_url": "https://en.wikipedia.org/wiki/Hollywood",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-061",
+      "category": "general",
+      "topic": "Film, music & entertainment",
+      "question": "Which entertainment company is most closely associated with Mickey Mouse?",
+      "options": [
+        "Disney",
+        "DreamWorks",
+        "Pixar",
+        "Warner Bros."
+      ],
+      "correct_index": 0,
+      "explanation": "Mickey Mouse is an iconic Disney character.",
+      "difficulty": "easy",
+      "reference_period": "Stable fact",
+      "source_url": "https://en.wikipedia.org/wiki/Mickey_Mouse",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-062",
+      "category": "general",
+      "topic": "Film, music & entertainment",
+      "question": "Which instrument normally has 88 keys?",
+      "options": [
+        "Flute",
+        "Trumpet",
+        "Piano",
+        "Violin"
+      ],
+      "correct_index": 2,
+      "explanation": "A standard full-size piano has 88 keys.",
+      "difficulty": "easy-medium",
+      "reference_period": "Stable fact",
+      "source_url": "https://en.wikipedia.org/wiki/Piano",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-063",
+      "category": "general",
+      "topic": "Film, music & entertainment",
+      "question": "Which singer is commonly known as the King of Pop?",
+      "options": [
+        "Michael Jackson",
+        "Prince",
+        "Elvis Presley",
+        "Stevie Wonder"
+      ],
+      "correct_index": 0,
+      "explanation": "Michael Jackson is widely known as the King of Pop.",
+      "difficulty": "easy",
+      "reference_period": "Stable fact",
+      "source_url": "https://en.wikipedia.org/wiki/Michael_Jackson",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-064",
+      "category": "general",
+      "topic": "Film, music & entertainment",
+      "question": "Which superhero comes from the planet Krypton?",
+      "options": [
+        "Batman",
+        "Spider-Man",
+        "Superman",
+        "Iron Man"
+      ],
+      "correct_index": 2,
+      "explanation": "Krypton is Superman's home planet.",
+      "difficulty": "easy",
+      "reference_period": "Stable fact",
+      "source_url": "https://en.wikipedia.org/wiki/Superman",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-065",
+      "category": "general",
+      "topic": "Film, music & entertainment",
+      "question": "In which 1997 film are Jack and Rose the main romantic characters?",
+      "options": [
+        "Titanic",
+        "Pretty Woman",
+        "La La Land",
+        "The Notebook"
+      ],
+      "correct_index": 0,
+      "explanation": "Jack and Rose are the central couple in Titanic.",
+      "difficulty": "easy",
+      "reference_period": "1997",
+      "source_url": "https://en.wikipedia.org/wiki/Titanic_(1997_film)",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-066",
+      "category": "general",
+      "topic": "Everyday technology",
+      "question": "Which company makes the iPhone?",
+      "options": [
+        "Google",
+        "Apple",
+        "Sony",
+        "Samsung"
+      ],
+      "correct_index": 1,
+      "explanation": "The iPhone is made by Apple.",
+      "difficulty": "easy",
+      "reference_period": "Stable fact",
+      "source_url": "https://www.apple.com/iphone/",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-067",
+      "category": "general",
+      "topic": "Everyday technology",
+      "question": "Which symbol separates the username from the domain in an email address?",
+      "options": [
+        "&",
+        "@",
+        "#",
+        "%"
+      ],
+      "correct_index": 1,
+      "explanation": "An email address uses @ between the local part and the domain.",
+      "difficulty": "easy-medium",
+      "reference_period": "Stable fact",
+      "source_url": "https://www.rfc-editor.org/info/rfc5322/",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-068",
+      "category": "general",
+      "topic": "Everyday technology",
+      "question": "What does GPS mainly help you determine?",
+      "options": [
+        "Your internet speed",
+        "The air temperature",
+        "Your location",
+        "Your battery percentage"
+      ],
+      "correct_index": 2,
+      "explanation": "GPS provides positioning information.",
+      "difficulty": "easy",
+      "reference_period": "Stable fact",
+      "source_url": "https://www.spaceforce.mil/About-Us/Fact-Sheets/Article/2197765/global-positioning-system/",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-069",
+      "category": "general",
+      "topic": "Everyday technology",
+      "question": "Which device is normally used to point and click on a desktop computer?",
+      "options": [
+        "Printer",
+        "Microphone",
+        "Mouse",
+        "Scanner"
+      ],
+      "correct_index": 2,
+      "explanation": "A mouse controls the pointer on a desktop computer.",
+      "difficulty": "easy-medium",
+      "reference_period": "Stable fact",
+      "source_url": "https://support.microsoft.com/en-us/windows/hardware/input-devices/change-mouse-settings",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-070",
+      "category": "general",
+      "topic": "Everyday technology",
+      "question": "Which of these apps is especially known for short-form videos?",
+      "options": [
+        "Outlook",
+        "TikTok",
+        "Zoom",
+        "Spotify"
+      ],
+      "correct_index": 1,
+      "explanation": "TikTok is a platform for short-form video.",
+      "difficulty": "easy",
+      "reference_period": "Stable fact",
+      "source_url": "https://ads.tiktok.com/business/en/blog/tiktok-short-video-best-practice?acq_banner_version=73412989",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-071",
+      "category": "general",
+      "topic": "Sports & games",
+      "question": "Which city hosted the 2024 Summer Olympics?",
+      "options": [
+        "Los Angeles",
+        "London",
+        "Tokyo",
+        "Paris"
+      ],
+      "correct_index": 3,
+      "explanation": "Paris hosted the 2024 Summer Olympics.",
+      "difficulty": "easy-medium",
+      "reference_period": "2024",
+      "source_url": "https://www.olympics.com/en/olympic-games/paris-2024",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-072",
+      "category": "general",
+      "topic": "Sports & games",
+      "question": "In standard basketball, how many players from one team are on the court at the same time?",
+      "options": [
+        "Five",
+        "Six",
+        "Four",
+        "Seven"
+      ],
+      "correct_index": 0,
+      "explanation": "Standard basketball is played with five players per team on court.",
+      "difficulty": "easy",
+      "reference_period": "Stable fact",
+      "source_url": "https://assets.fiba.basketball/image/upload/documents-corporate-fiba-official-rules-2024-v10a.pdf",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-073",
+      "category": "general",
+      "topic": "Sports & games",
+      "question": "Wimbledon is a major tournament in which sport?",
+      "options": [
+        "Tennis",
+        "Rugby",
+        "Cricket",
+        "Golf"
+      ],
+      "correct_index": 0,
+      "explanation": "Wimbledon is one of tennis's four Grand Slam tournaments.",
+      "difficulty": "easy",
+      "reference_period": "Stable fact",
+      "source_url": "https://www.wtatennis.com/tournaments/904/the-championships-wimbledon/2026",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-074",
+      "category": "general",
+      "topic": "Sports & games",
+      "question": "Which chess piece normally moves in an L-shape?",
+      "options": [
+        "Bishop",
+        "Queen",
+        "Knight",
+        "Rook"
+      ],
+      "correct_index": 2,
+      "explanation": "A knight moves two squares in one direction and one at a right angle.",
+      "difficulty": "easy-medium",
+      "reference_period": "Stable fact",
+      "source_url": "https://en.wikipedia.org/wiki/Knight_(chess)",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-075",
+      "category": "general",
+      "topic": "Sports & games",
+      "question": "In which card game should you say the game's name when you have one card left?",
+      "options": [
+        "Bridge",
+        "UNO",
+        "Blackjack",
+        "Poker"
+      ],
+      "correct_index": 1,
+      "explanation": "In UNO, players call 'UNO' when they have one card remaining.",
+      "difficulty": "easy",
+      "reference_period": "Stable fact",
+      "source_url": "https://service.mattel.com/instruction_sheets/42003-Eng.pdf",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-076",
+      "category": "general",
+      "topic": "History & politics",
+      "question": "In which year did the Berlin Wall fall?",
+      "options": [
+        "1985",
+        "1989",
+        "1995",
+        "1991"
+      ],
+      "correct_index": 1,
+      "explanation": "The Berlin Wall opened on 9 November 1989.",
+      "difficulty": "easy",
+      "reference_period": "1989",
+      "source_url": "https://history.state.gov/milestones/1989-1992/fall-of-communism",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-077",
+      "category": "general",
+      "topic": "History & politics",
+      "question": "Who was the first person to walk on the Moon?",
+      "options": [
+        "Michael Collins",
+        "Buzz Aldrin",
+        "Neil Armstrong",
+        "Yuri Gagarin"
+      ],
+      "correct_index": 2,
+      "explanation": "Armstrong first stepped onto the Moon in July 1969.",
+      "difficulty": "easy",
+      "reference_period": "1969",
+      "source_url": "https://www.nasa.gov/history/alsj/a11/a11.html",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-078",
+      "category": "general",
+      "topic": "History & politics",
+      "question": "Who first became President of France in 2017?",
+      "options": [
+        "Marine Le Pen",
+        "François Hollande",
+        "Nicolas Sarkozy",
+        "Emmanuel Macron"
+      ],
+      "correct_index": 3,
+      "explanation": "Macron began his first presidential term in May 2017.",
+      "difficulty": "easy-medium",
+      "reference_period": "2017",
+      "source_url": "https://www.elysee.fr/en/the-inauguration-of-emmanuel-macron",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-079",
+      "category": "general",
+      "topic": "History & politics",
+      "question": "Who became the 47th President of the United States in January 2025?",
+      "options": [
+        "Barack Obama",
+        "Donald Trump",
+        "Joe Biden",
+        "George W. Bush"
+      ],
+      "correct_index": 1,
+      "explanation": "Trump was inaugurated as the 47th US president in January 2025.",
+      "difficulty": "easy-medium",
+      "reference_period": "2025",
+      "source_url": "https://www.whitehouse.gov/administration/donald-j-trump/",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-080",
+      "category": "general",
+      "topic": "History & politics",
+      "question": "In which country did Luiz Inácio Lula da Silva begin his third presidential term in 2023?",
+      "options": [
+        "Argentina",
+        "Brazil",
+        "Chile",
+        "Mexico"
+      ],
+      "correct_index": 1,
+      "explanation": "Lula returned to the Brazilian presidency in January 2023.",
+      "difficulty": "easy",
+      "reference_period": "2023",
+      "source_url": "https://www.gov.br/cti/pt-br/trajetoria-historica/presidentes-da-republica-desde-a-criacao-do-cti",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-081",
+      "category": "general",
+      "topic": "Premier League",
+      "question": "Which English club did Erling Haaland join in 2022?",
+      "options": [
+        "Manchester City",
+        "Liverpool",
+        "Manchester United",
+        "Chelsea"
+      ],
+      "correct_index": 0,
+      "explanation": "Haaland joined Manchester City from Borussia Dortmund.",
+      "difficulty": "easy",
+      "reference_period": "2022",
+      "source_url": "https://www.mancity.com/news/mens/club-statement-erling-haaland-63787789",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-082",
+      "category": "general",
+      "topic": "Premier League",
+      "question": "Which club did Declan Rice join from West Ham in 2023?",
+      "options": [
+        "Manchester United",
+        "Chelsea",
+        "Liverpool",
+        "Arsenal"
+      ],
+      "correct_index": 3,
+      "explanation": "Rice moved from West Ham to Arsenal in 2023.",
+      "difficulty": "easy-medium",
+      "reference_period": "2023",
+      "source_url": "https://www.arsenal.com/feature/20-greatest-moments-at-emirates-stadium-aiwge1a4USvo",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-083",
+      "category": "general",
+      "topic": "Premier League",
+      "question": "Which club won the 2024/25 Premier League title?",
+      "options": [
+        "Liverpool",
+        "Manchester City",
+        "Arsenal",
+        "Chelsea"
+      ],
+      "correct_index": 0,
+      "explanation": "Liverpool won the 2024/25 title under Arne Slot.",
+      "difficulty": "easy",
+      "reference_period": "2024/25",
+      "source_url": "https://resources.premierleague.pulselive.com/premierleague/document/2025/11/17/40ca290f-0ea5-42ff-a9a8-a130ba584940/2024-25-Premier-League-Annual-Report.pdf",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-084",
+      "category": "general",
+      "topic": "Premier League",
+      "question": "Which club did Cole Palmer join from Manchester City in 2023?",
+      "options": [
+        "Chelsea",
+        "Arsenal",
+        "Liverpool",
+        "Tottenham Hotspur"
+      ],
+      "correct_index": 0,
+      "explanation": "Palmer joined Chelsea in September 2023.",
+      "difficulty": "easy-medium",
+      "reference_period": "2023",
+      "source_url": "https://www.chelseafc.com/en/news/article/cole-palmer-signs-for-chelsea",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-085",
+      "category": "general",
+      "topic": "Premier League",
+      "question": "Which club played its home matches at Old Trafford in the 2024/25 Premier League?",
+      "options": [
+        "Manchester United",
+        "Chelsea",
+        "Manchester City",
+        "Liverpool"
+      ],
+      "correct_index": 0,
+      "explanation": "Old Trafford is Manchester United's home ground.",
+      "difficulty": "easy",
+      "reference_period": "2024/25",
+      "source_url": "https://www.manutd.com/en/club/visit-old-trafford",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-086",
+      "category": "general",
+      "topic": "Premier League",
+      "question": "In which city is Tottenham Hotspur based?",
+      "options": [
+        "Liverpool",
+        "Manchester",
+        "London",
+        "Birmingham"
+      ],
+      "correct_index": 2,
+      "explanation": "Tottenham Hotspur is based in north London.",
+      "difficulty": "easy",
+      "reference_period": "Stable fact",
+      "source_url": "https://www.tottenhamhotspur.com/the-club/",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-087",
+      "category": "general",
+      "topic": "European & international football",
+      "question": "Which country did Erling Haaland represent in international football in 2024?",
+      "options": [
+        "Norway",
+        "Sweden",
+        "Finland",
+        "Denmark"
+      ],
+      "correct_index": 0,
+      "explanation": "Haaland is a Norway international.",
+      "difficulty": "easy",
+      "reference_period": "2024",
+      "source_url": "https://www.fotball.no/landslag/norge-a-herrer/vm-2026/troppen/",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-088",
+      "category": "general",
+      "topic": "Bundesliga",
+      "question": "Which German club did Harry Kane join in 2023?",
+      "options": [
+        "Bayern Munich",
+        "RB Leipzig",
+        "Bayer Leverkusen",
+        "Borussia Dortmund"
+      ],
+      "correct_index": 0,
+      "explanation": "Kane joined Bayern from Tottenham Hotspur.",
+      "difficulty": "easy",
+      "reference_period": "2023",
+      "source_url": "https://www.premierleague.com/en/news/3628922",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-089",
+      "category": "general",
+      "topic": "Bundesliga",
+      "question": "Which German club did Jude Bellingham leave to join Real Madrid in 2023?",
+      "options": [
+        "Bayern Munich",
+        "RB Leipzig",
+        "Bayer Leverkusen",
+        "Borussia Dortmund"
+      ],
+      "correct_index": 3,
+      "explanation": "Bellingham moved from Dortmund to Real Madrid in 2023.",
+      "difficulty": "easy-medium",
+      "reference_period": "2023",
+      "source_url": "https://www.realmadrid.com/en-US/news/club/announcements/official-announcement-bellingham",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-090",
+      "category": "general",
+      "topic": "Bundesliga",
+      "question": "Which club won the 2023/24 Bundesliga title?",
+      "options": [
+        "Borussia Dortmund",
+        "VfB Stuttgart",
+        "Bayer Leverkusen",
+        "Bayern Munich"
+      ],
+      "correct_index": 2,
+      "explanation": "Leverkusen won their first Bundesliga title in 2024.",
+      "difficulty": "easy-medium",
+      "reference_period": "2023/24",
+      "source_url": "https://www.bundesliga.com/en/bundesliga/news/bayer-leverkusen-are-2023-24-bundesliga-champions-26930/",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-091",
+      "category": "general",
+      "topic": "Bundesliga",
+      "question": "What are Borussia Dortmund's traditional main club colours?",
+      "options": [
+        "Black and yellow",
+        "Blue and white",
+        "Black and white",
+        "Red and white"
+      ],
+      "correct_index": 0,
+      "explanation": "Dortmund are widely known for their black-and-yellow colours.",
+      "difficulty": "easy",
+      "reference_period": "Stable fact",
+      "source_url": "https://www.bundesliga.com/en/bundesliga/matchday/2023-2024/10/borussia-dortmund-vs-fc-bayern-muenchen/liveticker/",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-092",
+      "category": "general",
+      "topic": "Bundesliga",
+      "question": "Which club plays its home matches at the Allianz Arena in Munich?",
+      "options": [
+        "Bayern Munich",
+        "Bayer Leverkusen",
+        "Eintracht Frankfurt",
+        "Borussia Dortmund"
+      ],
+      "correct_index": 0,
+      "explanation": "The Allianz Arena is Bayern Munich's home stadium.",
+      "difficulty": "easy",
+      "reference_period": "Stable fact",
+      "source_url": "https://fcbayern.com/en/fans/fan-clubs/fanclubs/home-games",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-093",
+      "category": "general",
+      "topic": "European & international football",
+      "question": "Which country won the 2022 men's FIFA World Cup?",
+      "options": [
+        "Croatia",
+        "Argentina",
+        "Brazil",
+        "France"
+      ],
+      "correct_index": 1,
+      "explanation": "Argentina beat France on penalties in the final.",
+      "difficulty": "easy",
+      "reference_period": "2022",
+      "source_url": "https://www.fifa.com/en/tournaments/mens/worldcup/qatar2022",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-094",
+      "category": "general",
+      "topic": "European & international football",
+      "question": "Which country hosted the 2022 men's FIFA World Cup?",
+      "options": [
+        "Russia",
+        "Saudi Arabia",
+        "United Arab Emirates",
+        "Qatar"
+      ],
+      "correct_index": 3,
+      "explanation": "The 2022 tournament was held in Qatar.",
+      "difficulty": "easy",
+      "reference_period": "2022",
+      "source_url": "https://www.fifa.com/en/tournaments/mens/worldcup/qatar2022",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-095",
+      "category": "general",
+      "topic": "European & international football",
+      "question": "Which national team did Kylian Mbappé play for at the 2022 World Cup?",
+      "options": [
+        "Senegal",
+        "Cameroon",
+        "Belgium",
+        "France"
+      ],
+      "correct_index": 3,
+      "explanation": "Mbappé played for France.",
+      "difficulty": "easy",
+      "reference_period": "2022",
+      "source_url": "https://www.fifa.com/en/tournaments/mens/worldcup/qatar2022",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-096",
+      "category": "general",
+      "topic": "European & international football",
+      "question": "Which country won UEFA EURO 2024?",
+      "options": [
+        "France",
+        "England",
+        "Spain",
+        "Germany"
+      ],
+      "correct_index": 2,
+      "explanation": "Spain beat England 2–1 in the final.",
+      "difficulty": "easy",
+      "reference_period": "2024",
+      "source_url": "https://www.uefa.com/uefaeuro/history/news/028f-1b61cc9835db-185592165f27-1000--uefa-euro-2024-at-a-glance/",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-097",
+      "category": "general",
+      "topic": "European & international football",
+      "question": "Which country hosted UEFA EURO 2024?",
+      "options": [
+        "Germany",
+        "France",
+        "England",
+        "Italy"
+      ],
+      "correct_index": 0,
+      "explanation": "The tournament took place in Germany.",
+      "difficulty": "easy",
+      "reference_period": "2024",
+      "source_url": "https://www.uefa.com/uefaeuro/history/news/028f-1b61cc9835db-185592165f27-1000--uefa-euro-2024-at-a-glance/",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-098",
+      "category": "general",
+      "topic": "European & international football",
+      "question": "Which club won the 2022/23 Champions League?",
+      "options": [
+        "Real Madrid",
+        "Manchester City",
+        "Bayern Munich",
+        "Inter"
+      ],
+      "correct_index": 1,
+      "explanation": "City beat Inter 1–0 in the final.",
+      "difficulty": "easy-medium",
+      "reference_period": "2022/23",
+      "source_url": "https://www.uefa.com/uefachampionsleague/news/0282-1839b24603ef-36e94e63621d-1000--man-city-win-champions-league-rodri-goal-secures-victory/",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-099",
+      "category": "general",
+      "topic": "European & international football",
+      "question": "Which club won the 2023/24 Champions League?",
+      "options": [
+        "Borussia Dortmund",
+        "Manchester City",
+        "Bayern Munich",
+        "Real Madrid"
+      ],
+      "correct_index": 3,
+      "explanation": "Real Madrid beat Dortmund 2–0 in the final.",
+      "difficulty": "easy",
+      "reference_period": "2023/24",
+      "source_url": "https://www.uefa.com/uefachampionsleague/news/028e-1b07e18d875a-ba78e4b9d9fc-1000--highlights-report-madrid-win-champions-league/",
+      "checked_on": "2026-11-19"
+    },
+    {
+      "id": "general-v1-100",
+      "category": "general",
+      "topic": "European & international football",
+      "question": "Which club won the 2024/25 Champions League?",
+      "options": [
+        "Real Madrid",
+        "Barcelona",
+        "Paris Saint-Germain",
+        "Inter"
+      ],
+      "correct_index": 2,
+      "explanation": "Paris Saint-Germain beat Inter 5–0 in the final.",
+      "difficulty": "easy-medium",
+      "reference_period": "2024/25",
+      "source_url": "https://www.uefa.com/uefachampionsleague/news/0299-1db3ed7babb3-e6227af6104f-1000--paris-win-champions-league-meet-the-2024-25-victors/",
+      "checked_on": "2026-11-19"
+    }
+  ]
+}

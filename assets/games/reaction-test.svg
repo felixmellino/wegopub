@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+<style>
+.ring{transform-origin:60px 64px;animation:ring 1.4s ease-out infinite}
+.ring2{animation-delay:.7s}
+@keyframes ring{0%{transform:scale(.7);opacity:.8}100%{transform:scale(1.5);opacity:0}}
+.hand{transform-origin:60px 64px;animation:spin 1.4s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.bolt{transform-origin:60px 64px;animation:zap 1.4s ease-in-out infinite}
+@keyframes zap{0%,60%,100%{transform:scale(1);opacity:1}70%{transform:scale(1.18);opacity:1}80%{opacity:.6}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}.ring{opacity:0}}
+</style>
+<circle class="ring" cx="60" cy="64" r="34" fill="none" stroke="#fff" stroke-width="3"/>
+<circle class="ring ring2" cx="60" cy="64" r="34" fill="none" stroke="#fff" stroke-width="3"/>
+<rect x="52" y="18" width="16" height="9" rx="3" fill="#fff"/>
+<path d="M84 34l6-6" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+<circle cx="60" cy="64" r="34" fill="#fff"/>
+<circle cx="60" cy="64" r="27" fill="#EEF0FF"/>
+<g stroke="#4B3FD8" stroke-width="3" stroke-linecap="round"><path d="M60 40v5M60 83v5M36 64h5M79 64h5"/></g>
+<path class="bolt" d="M64 44L48 68h11l-4 18 17-25H61z" fill="#FFD23F" stroke="#4B3FD8" stroke-width="3" stroke-linejoin="round"/>
+<g class="hand"><path d="M60 64V36" stroke="#4B3FD8" stroke-width="3" stroke-linecap="round" opacity=".45"/></g>
+<circle cx="60" cy="64" r="3.5" fill="#4B3FD8"/>
+</svg>

@@ -1,0 +1,29 @@
+<!doctype html>
+<html><head><meta charset="utf-8"></head><body>
+<script>
+// Only an opaque device token is stored here. Passwords never enter this component.
+const storageKey = "wegopub.remembered-device.v1";
+let lastRequest = null;
+function send(type, details) {
+  window.parent.postMessage({isStreamlitMessage: true, type, ...details}, "*");
+}
+window.addEventListener("message", (event) => {
+  if (event.source !== window.parent || event.data.type !== "streamlit:render") return;
+  const args = event.data.args;
+  if (args.request_id === lastRequest) return;
+  lastRequest = args.request_id;
+  let token = "", available = true;
+  try {
+    if (args.action === "write") localStorage.setItem(storageKey, args.token);
+    if (args.action === "clear") localStorage.removeItem(storageKey);
+    token = localStorage.getItem(storageKey) || "";
+  } catch (error) {
+    available = false;
+  }
+  send("streamlit:setComponentValue", {
+    value: {token, available, request_id: args.request_id}, dataType: "json"
+  });
+});
+send("streamlit:componentReady", {apiVersion: 1});
+send("streamlit:setFrameHeight", {height: 0});
+</script></body></html>

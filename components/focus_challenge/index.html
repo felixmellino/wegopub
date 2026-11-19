@@ -1,0 +1,131 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style id="tokens"></style><style>
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--text);font:16px var(--font-body);height:100%;overflow:hidden}
+[hidden]{display:none!important}main{height:100dvh;overflow:auto;padding:calc(24px + env(safe-area-inset-top)) 22px calc(24px + env(safe-area-inset-bottom));display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px}
+.eyebrow{color:var(--accent-ink);font-size:12px;letter-spacing:.12em;font-weight:700;margin:0}h1{font:32px var(--font-display);margin:0}h2{font-size:24px;margin:8px 0}p{line-height:1.5;margin:8px 0}.muted{color:var(--text-muted)}#timer{font-size:20px;font-variant-numeric:tabular-nums;min-height:28px}section{width:100%;max-width:440px;margin:auto 0}.panel{border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--surface);padding:24px}
+button{font:600 17px var(--font-body);color:var(--text);border:2px solid var(--border);border-radius:var(--radius-lg);background:var(--surface);min-height:48px;touch-action:manipulation;cursor:pointer;user-select:none;-webkit-user-select:none}button:focus-visible{outline:3px solid var(--accent-ink);outline-offset:3px}button:disabled{cursor:wait}button.primary{background:var(--accent);color:var(--on-accent);border-color:var(--accent);padding:16px 28px;width:100%;margin-top:16px}#react{height:min(48vh,330px);width:100%;font-size:32px;background:var(--surface);border:3px solid var(--border)}#react.go{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+#grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:20px 0}#grid button{aspect-ratio:1/1;font-size:24px}#grid button.flash{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+#arena{position:relative;width:100%;aspect-ratio:1/1;border:2px solid var(--border);border-radius:var(--radius-lg);background:var(--surface);touch-action:manipulation;overflow:hidden}#target{position:absolute;transform:translate(-50%,-50%);width:52px;height:52px;min-height:52px;border-radius:50%;border:2px solid var(--accent-ink);background:var(--accent);color:var(--on-accent);font-size:22px}
+.progress{display:flex;gap:6px;width:100%;max-width:440px}.progress span{height:5px;flex:1;background:var(--border);border-radius:9px}.progress span.done{background:var(--accent)}#hint{font-size:13px;color:var(--text-muted);max-width:420px;margin-top:auto}#saving{min-height:22px;font-size:14px;color:var(--accent-ink)}
+#falsestart{position:fixed;inset:0;z-index:5;background:var(--error);color:var(--text);display:grid;place-content:center;text-align:center;padding:24px}
+</style></head><body><main>
+<div class="progress" aria-label="Three tests"><span></span><span></span><span></span></div>
+<h1 id="title">Reaction Test</h1><div id="timer" hidden></div>
+<section id="ready" class="panel" hidden><h2 id="readyTitle"></h2><p id="instructions"></p><button id="start" class="primary">I’m ready</button></section>
+<section id="reaction" hidden><p id="trial"></p><button id="react" aria-label="Reaction target">WAIT…</button><p class="muted">Wait for TAP NOW. An early tap ends this attempt.</p></section>
+<section id="memory" hidden><p id="memoryHint"></p><div id="grid" aria-label="Memory grid"></div></section>
+<section id="precision" hidden><p id="precisionHint"></p><div id="arena" aria-label="Precision play area"><button id="target" aria-label="Precision target">1</button></div><p class="muted">Tap each numbered target. Tapping elsewhere ends the attempt.</p></section>
+<section id="result" class="panel" hidden><h2 id="resultTitle"></h2><p id="resultText"></p></section>
+<div id="saving" role="status" aria-live="polite"></div><p id="hint" hidden></p>
+</main><script src="logic.js"></script><div id="falsestart" hidden role="alert" tabindex="0"><h1>FALSE START</h1><p>This try does not count. Tap to continue.</p></div>
+<script>
+let game=null,anchorEpoch=0,anchorMono=0,signature='',pending=null,taps=[],memorySequence=[],sentKey='';
+const $=id=>document.getElementById(id),views=['ready','reaction','memory','precision','result'];
+const send=(type,extra)=>window.parent.postMessage({isStreamlitMessage:true,type,...extra},'*');
+function now(){return anchorEpoch+performance.now()-anchorMono;}
+function load(key,fallback){try{return JSON.parse(localStorage.getItem(key))??fallback;}catch{return fallback;}}
+function store(key,value){try{localStorage.setItem(key,JSON.stringify(value));}catch{}}
+function emit(action,payload={}){
+ if(!game||game.status!=='running')return;
+ pending={attempt_id:game.id,revision:game.revision,action,payload};
+ store('focus-event-'+game.id,pending);publish();render();
+}
+function publish(){if(!pending)return;sentKey=JSON.stringify(pending);send('streamlit:setComponentValue',{value:pending,dataType:'json'});}
+function cacheTaps(){store('focus-taps-'+game.id,{revision:game.revision,taps});}
+function selectView(name){views.forEach(v=>$(v).hidden=v!==name);}
+let showRed=false;
+function render(){
+ if(!game)return;
+ const at=now(),c=game.config,ended=game.status!=='running';
+ $('falsestart').hidden=!showRed;
+ $('hint').textContent=ended?'Your result is saved. Use × to return to games.':'The clock keeps running if you leave. Pass all three tests consecutively.';
+ const index=game.phase.startsWith('reaction')?0:game.phase.startsWith('memory')?1:2;
+ document.querySelectorAll('.progress span').forEach((el,i)=>el.classList.toggle('done',i<index||game.status==='passed'));
+ $('saving').textContent=pending?'Saving progress…':'';
+ $('timer').textContent=ended?'':Math.max(0,(Math.min(Date.parse(game.deadline),Date.parse(game.expires_at))-at)/1000).toFixed(1)+' s';
+ if(ended){
+  selectView('result');$('title').textContent='Challenge complete';
+  $('resultTitle').textContent=game.status==='passed'?'Focus boost earned!':'Attempt finished';
+  const messages={timeout:'Time ran out. Your next attempt unlocks after two more accepted check-ins.',memory_wrong:'That was not the sequence. Your next attempt unlocks after two more accepted check-ins.',reaction_slow:'Reaction was too slow. Required: '+c.reaction_median_ms+' ms or faster. Your next attempt unlocks after two more accepted check-ins.',miss:'A target was missed or a reaction tap was early. Your next attempt unlocks after two more accepted check-ins.'};
+  $('resultText').textContent=game.status==='passed'
+   ?'×1.5 on your ordinary season and territory check-ins for the next hour, while scoring is open.'+(game.test_mode?' Test mode: you can play again; wins refresh the boost without stacking.':'')
+   :game.test_mode?'Test mode: return to games and retry immediately. No uploads are required.'
+   :messages[game.reason]||'Your next attempt unlocks after two more accepted check-ins.';
+  return;
+ }
+ if(at>=Date.parse(game.expires_at)||(at>Date.parse(game.deadline)&&!pending)){
+  if(!pending)emit('fail');return;
+ }
+ if(game.phase.endsWith('_ready')){
+  selectView('ready');const reaction=game.phase==='reaction_ready',memory=game.phase==='memory_ready';
+  $('title').textContent=reaction?'01 · Reaction':memory?'02 · Memory':'03 · Precision';
+  $('readyTitle').textContent=reaction?'One signal. React fast.':memory?'Reaction passed. Next: memory.':'Memory passed. Next: precision.';
+  $('instructions').textContent=reaction?(c.reaction_trials===1?'One unpredictable signal. Tap within '+c.reaction_median_ms+' ms. No early taps.':c.reaction_trials+' signals. Median must be '+c.reaction_median_ms+' ms or faster.'):memory?'Watch seven highlighted positions, then repeat their order. Press Start memory when you are ready.':'Tap twelve numbered targets in order. Their positions change. One wrong tap ends the attempt.';
+  $('start').textContent=reaction?'Start reaction':memory?'Start memory':'Start precision';
+  $('start').disabled=!!pending;return;
+ }
+ if(game.phase==='reaction'){
+  selectView('reaction');$('title').textContent='01 · Reaction';$('trial').textContent='Trial '+(game.step+1)+' of '+c.reaction_trials;
+  const go=at>=Date.parse(game.signal_at);$('react').classList.toggle('go',go);
+  $('react').textContent=pending?'SAVING…':go?'TAP NOW':'WAIT…';$('react').disabled=!!pending;return;
+ }
+ if(game.phase==='memory'){
+  selectView('memory');$('title').textContent='02 · Memory';
+  const preview=at<Date.parse(game.signal_at),frame=FocusLogic.memoryFrame({...game,memory:memorySequence},at);
+  $('memoryHint').textContent=preview?'Watch the seven highlighted positions.':'Repeat the sequence · '+game.step+' of '+c.memory_length+' correct';
+  [...$('grid').children].forEach((b,i)=>{b.disabled=preview||!!pending;b.classList.toggle('flash',preview&&frame===i);});return;
+ }
+ if(game.phase==='precision'){
+  selectView('precision');$('title').textContent='03 · Precision';
+  $('precisionHint').textContent=taps.length+' of '+c.precision_targets+' targets';
+  const pos=game.positions?.[taps.length];
+  $('target').hidden=!pos||at>=Date.parse(game.deadline);
+  if(pos){$('target').style.left=(pos.x/10)+'%';$('target').style.top=(pos.y/10)+'%';$('target').textContent=String(taps.length+1);}
+ }
+}
+$('start').onclick=()=>{if(!pending)emit('ready');};
+function reactionPress(){
+ if(pending||!game)return;
+ const elapsed=Math.floor(now()-Date.parse(game.signal_at));
+ if(elapsed<0&&game.config.reaction_only){showRed=true;emit('false_start');return;}
+ if(elapsed<0||elapsed>game.config.reaction_response_ms)emit('fail');else emit('reaction',{elapsed_ms:elapsed});
+}
+$('falsestart').addEventListener('pointerdown',event=>{event.preventDefault();showRed=false;render();});
+$('falsestart').addEventListener('keydown',event=>{if(['Enter',' ','Escape'].includes(event.key)){event.preventDefault();showRed=false;render();}});
+$('react').addEventListener('pointerdown',event=>{event.preventDefault();reactionPress();});
+$('react').addEventListener('keydown',event=>{if(!event.repeat&&['Enter',' '].includes(event.key)){event.preventDefault();reactionPress();}});
+for(let i=0;i<9;i++){
+ const b=document.createElement('button');b.textContent=String(i+1);b.setAttribute('aria-label','Memory cell '+(i+1));
+ b.onclick=()=>{if(!pending&&now()>=Date.parse(game.signal_at))emit('memory',{cell:i});};$('grid').appendChild(b);
+}
+$('target').onclick=event=>{
+ event.stopPropagation();if(!game||game.status!=='running'||taps.length>=game.config.precision_targets)return;
+ const elapsed=Math.floor(now()-Date.parse(game.signal_at));
+ if(elapsed<0||elapsed>game.config.precision_ms){emit('fail');return;}
+ taps.push(Math.max(elapsed,(taps.at(-1)??-1)+1));cacheTaps();
+ // Send full prefixes. Clicks remain local and responsive while requests travel.
+ emit('precision',{taps:[...taps]});render();
+};
+$('arena').onclick=event=>{if(event.target!==$('target')&&game?.status==='running'&&game?.phase==='precision')emit('fail');};
+window.addEventListener('message',event=>{
+ if(event.source!==window.parent||event.data?.type!=='streamlit:render')return;
+ const args=event.data.args,a=args?.attempt;if(!a?.id||!Number.isInteger(a.revision))return;
+ $('tokens').textContent=args.tokens||'';
+ const next=a.id+':'+a.revision;
+ if(next!==signature){signature=next;anchorEpoch=Date.parse(a.server_now);anchorMono=performance.now();pending=null;sentKey='';memorySequence=[];}
+ game=a;
+ if(a.memory)memorySequence=[...a.memory];
+ const cached=load('focus-taps-'+a.id,{});
+ taps=a.phase==='precision'?FocusLogic.mergeTaps(a.precision_taps||[],cached.revision===a.revision?cached.taps:[],a.config):[];
+ const saved=load('focus-event-'+a.id,null);
+ if(saved&&saved.revision===a.revision&&a.status==='running'){
+  const ack=saved.action==='precision'&&(a.precision_taps||[]).length>=saved.payload.taps.length;
+  if(!ack){pending=saved;if(JSON.stringify(saved)!==sentKey)publish();}else{pending=null;store('focus-event-'+a.id,null);}
+ }else{store('focus-event-'+a.id,null);}
+ if(a.status!=='running'){pending=null;store('focus-event-'+a.id,null);store('focus-taps-'+a.id,null);}
+ render();send('streamlit:setFrameHeight',{height:window.innerHeight});
+});
+setInterval(render,16);
+window.addEventListener('resize',()=>send('streamlit:setFrameHeight',{height:window.innerHeight}));
+send('streamlit:componentReady',{apiVersion:1});
+</script></body></html>

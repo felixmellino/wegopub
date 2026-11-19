@@ -1,0 +1,83 @@
+/* Bottom tab bar: five tabs like an iPhone app, check-in plus in the middle.
+   Icons are added by app_navigation.py as CSS masks on button::before. */
+.st-key-wego_bottom_nav {
+  position: fixed; left: 50%; transform: translateX(-50%);
+  bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+  width: min(460px, calc(100% - 20px)); z-index: 1000;
+  padding: 6px 6px; border-radius: 28px;
+  background: var(--hud-bg); box-shadow: var(--shadow-float), 0 0 0 1px var(--border);
+  backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px);
+}
+.st-key-wego_bottom_nav [data-testid="stHorizontalBlock"] { flex-wrap: nowrap !important; gap: 0; align-items: center; }
+.st-key-wego_bottom_nav [data-testid="stColumn"] { min-width: 0 !important; width: 0 !important; flex: 1 1 0 !important; }
+.st-key-wego_bottom_nav [data-testid="stVerticalBlock"] { gap: 0; }
+
+/* Tabs: icon above a short label. */
+.st-key-wego_bottom_nav button {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
+  width: 100%; min-height: 54px; padding: 4px 0; border: 0; border-radius: 22px;
+  color: var(--text-muted); background: transparent; -webkit-tap-highlight-color: transparent;
+}
+.st-key-wego_bottom_nav button::before {
+  content: ""; display: block; width: 26px; height: 26px; flex: 0 0 auto; background-color: currentColor;
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  -webkit-mask-position: center; mask-position: center;
+  -webkit-mask-size: contain; mask-size: contain;
+}
+.st-key-wego_bottom_nav button > div { width: 100%; }
+.st-key-wego_bottom_nav button p {
+  font-size: 0.68rem; line-height: 1; font-weight: 600; letter-spacing: 0.01em;
+  white-space: nowrap; text-align: center; color: inherit;
+}
+.st-key-wego_bottom_nav button:hover { background: transparent; color: var(--text); }
+.st-key-wego_bottom_nav button:focus-visible { outline: 2px solid var(--accent-ink); outline-offset: -2px; }
+
+/* Align with the top-right of the centered game-controller icon. */
+[data-testid="stElementContainer"]:has(.wego-invite-badge-style) { display: none; }
+.st-key-wego_nav_minigames button { position: relative; }
+.st-key-wego_nav_minigames button::after {
+  position: absolute; top: 2px; left: calc(50% + 7px);
+  box-sizing: border-box; min-width: 16px; height: 16px; padding: 0 3px;
+  border-radius: 999px; background: #b32639; color: #fff;
+  font-size: 10px; font-weight: 700; line-height: 16px; text-align: center;
+  box-shadow: 0 0 0 1px var(--bg); pointer-events: none;
+}
+
+/* The check-in plus: a round accent button that sits slightly above the bar. */
+.st-key-wego_nav_checkin [data-testid="stButton"] { display: flex; justify-content: center; }
+.stApp .st-key-wego_bottom_nav .st-key-wego_nav_checkin button {
+  width: 60px; height: 60px; min-height: 60px; margin-top: -22px; padding: 0;
+  border: 4px solid var(--bg); border-radius: 50%;
+  background: var(--accent); color: var(--on-accent); box-shadow: var(--shadow-float);
+}
+.stApp .st-key-wego_bottom_nav .st-key-wego_nav_checkin button:hover { background: var(--accent-hover); }
+.st-key-wego_bottom_nav .st-key-wego_nav_checkin button::before { width: 28px; height: 28px; }
+/* Keep the button's accessible name ("Check in") but show only the plus. */
+.st-key-wego_nav_checkin button [data-testid="stMarkdownContainer"] {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap;
+}
+
+/* Room for the bar under the page; no sidebar when the bar is shown. */
+.stApp:has(.st-key-wego_bottom_nav) [data-testid="stMain"] [data-testid="stMainBlockContainer"] {
+  padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px));
+}
+.stApp:has(.st-key-wego_bottom_nav) [data-testid="stSidebar"],
+.stApp:has(.st-key-wego_bottom_nav) button[aria-label="Expand sidebar"],
+.stApp:has(.st-key-wego_bottom_nav) button[aria-label="Collapse sidebar"] { display: none; }
+
+/* Back button: small, quiet, at the top of every page. On the phone Map (a full-screen map)
+   it becomes a round button left of the top bar. */
+.stApp .st-key-wego_back { margin: -6px 0 -8px; }
+.stApp .st-key-wego_back button { min-height: 30px; width: auto; padding: 0 10px 0 2px; gap: 0; border: 0;
+  background: transparent; color: var(--text-muted); font-weight: 600; box-shadow: none; }
+@media (max-width: 640px) {
+  .stApp:has(.st-key-game_map) .st-key-wego_back { position: fixed; z-index: 11; margin: 0; width: 38px !important;
+    top: calc(8px + env(safe-area-inset-top, 0px)); left: 10px; }
+  .stApp:has(.st-key-game_map) .st-key-wego_back button { width: 38px; height: 38px; min-height: 38px; padding: 0 0 0 6px;
+    border-radius: 50%; background: var(--hud-bg); color: var(--text); box-shadow: var(--shadow-card);
+    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
+  .stApp:has(.st-key-game_map) .st-key-wego_back button [data-testid="stMarkdownContainer"] {
+    position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
+  .stApp:has(.st-key-wego_back):has(.st-key-game_map) .game-hud { margin-left: 46px; }
+}

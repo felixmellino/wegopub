@@ -1,0 +1,17 @@
+/* Native buttons provide the entire click target and keyboard support. */
+[class*="st-key-friends_card_"] button {
+  min-height:130px;border-radius:18px;border:0;
+  background:var(--surface);color:var(--text);justify-content:flex-start;
+  padding:24px;box-shadow:var(--shadow-card);
+}
+[class*="st-key-friends_card_"] button p {font-size:1.08rem;font-weight:650;}
+[class*="st-key-friends_card_"] button:hover {background:var(--accent-soft);color:var(--text);}
+[class*="st-key-friends_card_"] button:focus-visible {outline:3px solid var(--accent-ink);outline-offset:3px;}
+[data-testid="stDialog"]:has(.st-key-close_friends_dialog) {
+  backdrop-filter:blur(5px);background:rgba(10,20,30,.35);
+}
+@media (max-width:640px) {
+  [data-testid="stHorizontalBlock"]:has([class*="st-key-friends_card_"]) {flex-direction:column;gap:12px;}
+  [data-testid="stHorizontalBlock"]:has([class*="st-key-friends_card_"]) > [data-testid="stColumn"] {width:100%;flex:1 1 100%;}
+  [class*="st-key-friends_card_"] button {min-height:100px;padding:20px;}
+}
